@@ -1,0 +1,9 @@
+<h1 class="mt-5" style="text-align: center;">Products</h1>
+
+<div class="flex">
+  <app-product_item
+    class="product_item"
+    *ngFor="let shoeEl of shoes"
+    [shoe]="shoeEl"
+  ></app-product_item>
+</div>

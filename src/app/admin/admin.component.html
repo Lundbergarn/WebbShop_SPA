@@ -1,0 +1,29 @@
+<h1 style="text-align: center;" class="mt-5 mb-5">
+  Admin
+</h1>
+
+<div class="container">
+  <mat-card *ngFor="let order of orders" class="mb-3">
+    <details>
+      <summary class="mb-3">Customer : {{ order.customerId }}</summary>
+      <mat-card-subtitle
+        ><strong>Order-date:</strong>
+        {{ order.order_Date | date: "fullDate" }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        ><strong>Order-ID:</strong> {{ order.id }}</mat-card-subtitle
+      >
+      <div *ngFor="let row of order.order_Rows; let i = index" class="mb-3">
+        <mat-card-subtitle
+          ><strong>Shoe {{ i + 1 }}: </strong>
+          {{ row.shoe.name }}</mat-card-subtitle
+        >
+        <!-- <mat-card-subtitle
+        ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
+      > -->
+      </div>
+    </details>
+  </mat-card>
+</div>
+
+<button (click)="displayOrders()">displaay orders</button>

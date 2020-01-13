@@ -1,0 +1,27 @@
+img {
+  text-align: center;
+  min-width: 253px;
+  width: 100%;
+  margin-bottom: 50px;
+}
+picture,
+.product_content {
+  padding: 10px 30px;
+  width: 50%;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 100px auto;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 978px) {
+  picture,
+  .product_content {
+    padding: 10px;
+    width: 100%;
+  }
+}

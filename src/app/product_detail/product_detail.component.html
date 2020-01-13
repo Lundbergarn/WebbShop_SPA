@@ -1,0 +1,15 @@
+<div class="flex container">
+  <picture>
+    <source media="(min-width:0px)" [srcset]="shoe.image_Url" />
+    <img mat-card-image src="" alt="Photo of a Shiba Inu" />
+  </picture>
+  <div class="product_content">
+    <h2>{{ shoe.name }}</h2>
+    <h3>{{ shoe.price }}:-</h3>
+    <br />
+    <p><strong>Beskrivning</strong></p>
+    <p>{{ shoe.product_Description }}</p>
+    <br />
+    <button class="btn btn-primary">Lägg i varukorg</button>
+  </div>
+</div>
