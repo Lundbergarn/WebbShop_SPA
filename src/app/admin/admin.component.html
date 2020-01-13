@@ -2,6 +2,8 @@
   Admin
 </h1>
 
+<h3 *ngIf="!admin" style="text-align: center;">Logg in to view all orders.</h3>
+
 <div class="container">
   <mat-card *ngFor="let order of orders" class="mb-3">
     <details>
@@ -25,5 +27,3 @@
     </details>
   </mat-card>
 </div>
-
-<button (click)="displayOrders()">displaay orders</button>

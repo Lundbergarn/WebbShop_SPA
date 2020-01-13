@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { JwtModule } from "@auth0/angular-jwt";
 
 import { AppComponent } from "./app.component";
 import { HttpClientModule } from "@angular/common/http";
@@ -29,6 +30,10 @@ import { AdminComponent } from "./admin/admin.component";
 import { ProductService } from "./product.service";
 import { OrderService } from "./order.service";
 
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +60,13 @@ import { OrderService } from "./order.service";
     FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter: tokenGetter,
+    //     whitelistedDomains: ["localhost:5000/admin"],
+    //     blacklistedRoutes: ["localhost:5000/api/auth"]
+    //   }
+    // })
   ],
   providers: [
     AuthService,

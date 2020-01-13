@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../_services/auth.service";
 import { AlertifyService } from "../_services/alertify.service";
+import { OrderService } from "../order.service";
 
 @Component({
   selector: "app-nav",
@@ -12,7 +13,8 @@ export class NavComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit() {}
@@ -21,6 +23,7 @@ export class NavComponent implements OnInit {
     this.authService.login(this.model).subscribe(
       next => {
         this.alertify.success("logged in successfully");
+        this.orderService.loggedIn();
       },
       error => {
         this.alertify.error(error);

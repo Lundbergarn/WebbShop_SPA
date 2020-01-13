@@ -10,19 +10,14 @@
     </li>
   </ul>
 
-  <div *ngIf="loggedIn()" class="dropdown text-light">
-    <a class="dropdown-toggle">
-      Welcome User
-    </a>
-
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#"
-        ><i class="fa fa-user"></i>Edit Profile</a
-      >
-      <div class="div dropdown-divider"></div>
-      <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
-    </div>
-  </div>
+  <ul *ngIf="loggedIn()" class="navbar-nav">
+    <li class="nav-item text-light" style="padding: 0.5rem;">
+      Welcome Admin
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="logout()">Logout</a>
+    </li>
+  </ul>
 
   <form
     *ngIf="!loggedIn()"

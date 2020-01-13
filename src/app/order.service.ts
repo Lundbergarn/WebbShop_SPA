@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable, of } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { Subject, Observable, of, throwError, Subscription } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { Shoe } from "./shoe.model";
@@ -9,12 +9,23 @@ import { Order } from "./order.model";
 
 @Injectable()
 export class OrderService {
-  constructor(private http: HttpClient) {}
   Url: string = "http://localhost:5000/api/";
+  verifiedAdmin = new Subject<boolean>();
+
+  constructor(private http: HttpClient) {}
+
+  loggedIn() {
+    this.verifiedAdmin.next(true);
+  }
 
   getOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(this.Url + "admin")
+      .get<Order[]>(this.Url + "admin", {
+        headers: new HttpHeaders().set(
+          "Authorization",
+          "Bearer " + localStorage.getItem("token")
+        )
+      })
       .pipe(catchError(this.handleError<Order[]>("getOrders", [])));
   }
 
