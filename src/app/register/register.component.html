@@ -1,15 +1,26 @@
-<form #registerForm="ngForm" (ngSubmit)="register()">
+<form #registerForm="ngForm" (ngSubmit)="register()" class="app-register">
   <h2 class="text-center text-primary">Sign Up</h2>
   <hr />
+
+  <div class="form-group">
+    <input
+      type="email"
+      class="form-control"
+      required
+      name="Email"
+      placeholder="Email"
+      [(ngModel)]="model.Email"
+    />
+  </div>
 
   <div class="form-group">
     <input
       type="text"
       class="form-control"
       required
-      name="username"
+      name="UserName"
       placeholder="Username"
-      [(ngModel)]="model.username"
+      [(ngModel)]="model.UserName"
     />
   </div>
 
@@ -18,9 +29,53 @@
       type="password"
       class="form-control"
       required
-      name="password"
+      name="Password"
       placeholder="Password"
-      [(ngModel)]="model.password"
+      [(ngModel)]="model.Password"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      required
+      name="FirstName"
+      placeholder="First name"
+      [(ngModel)]="model.FirstName"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      required
+      name="LastName"
+      placeholder="Last name"
+      [(ngModel)]="model.LastName"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="number"
+      class="form-control"
+      required
+      name="Phone"
+      placeholder="Phone number"
+      [(ngModel)]="model.Phone"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      required
+      name="Address"
+      placeholder="Address"
+      [(ngModel)]="model.Address"
     />
   </div>
 

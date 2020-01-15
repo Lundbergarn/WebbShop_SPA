@@ -10,6 +10,8 @@ import { OrderService } from "../order.service";
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  id: any;
+  user: string;
 
   constructor(
     private authService: AuthService,
@@ -20,10 +22,11 @@ export class NavComponent implements OnInit {
   ngOnInit() {}
 
   login() {
-    this.authService.login(this.model).subscribe(
+    this.authService.login(this.model, "customer/auth").subscribe(
       next => {
         this.alertify.success("logged in successfully");
         this.orderService.loggedIn();
+        this.user = this.model.username;
       },
       error => {
         this.alertify.error(error);
@@ -40,5 +43,6 @@ export class NavComponent implements OnInit {
   logout() {
     localStorage.removeItem("token");
     this.alertify.message("logged out");
+    this.user = "";
   }
 }

@@ -1,0 +1,21 @@
+.container div {
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+}
+.container div {
+  padding: 30px 0 10px 0;
+  /* line-height: 4rem; */
+  border-top: 1px solid #ddd;
+}
+.container div .mat-card-subtitle {
+  width: 100%;
+}
+
+.container div picture img {
+  max-width: 250px;
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 500px) {
+}

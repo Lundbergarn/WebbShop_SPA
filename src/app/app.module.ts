@@ -29,6 +29,7 @@ import { Product_itemComponent } from "./product_list/product_item/product_item.
 import { AdminComponent } from "./admin/admin.component";
 import { ProductService } from "./product.service";
 import { OrderService } from "./order.service";
+import { BasketComponent } from "./basket/basket.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -52,21 +53,22 @@ export function tokenGetter() {
     Product_itemComponent,
     Product_detailComponent,
     OrdersComponent,
-    AdminComponent
+    AdminComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    AppRoutingModule
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: tokenGetter,
-    //     whitelistedDomains: ["localhost:5000/admin"],
-    //     blacklistedRoutes: ["localhost:5000/api/auth"]
-    //   }
-    // })
+    AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ["localhost:5000"],
+        blacklistedRoutes: ["localhost:5000/api/auth"]
+      }
+    })
   ],
   providers: [
     AuthService,

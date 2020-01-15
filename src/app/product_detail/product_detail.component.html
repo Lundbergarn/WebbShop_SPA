@@ -4,12 +4,49 @@
     <img mat-card-image src="" alt="Photo of a Shiba Inu" />
   </picture>
   <div class="product_content">
-    <h2>{{ shoe.name }}</h2>
+    <h2>
+      <strong>{{ shoe.brand }}</strong>
+    </h2>
+    <h3>{{ shoe.name }}</h3>
     <h3>{{ shoe.price }}:-</h3>
-    <br />
+
+    <!-- // Form select  -->
+    <div class="form-group">
+      <label for="contactMethod">Välj färg</label>
+      <select
+        name="contactMethod"
+        id="contactMethod"
+        class="form-control"
+        [(ngModel)]="contact.contactMethod"
+      >
+        <option *ngFor="let method of contactMethods" [value]="method.id">{{
+          method.label
+        }}</option>
+      </select>
+    </div>
+
+    <!-- // Form select  -->
+    <div class="form-group">
+      <label for="contactMethod">Välj storlek</label>
+      <select
+        name="contactMethod"
+        id="contactMethod"
+        class="form-control"
+        [(ngModel)]="contact.contactMethod"
+      >
+        <option *ngFor="let method of contactMethods" [value]="method.id">{{
+          method.label
+        }}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" (click)="addToCard()">
+      Lägg i varukorg
+    </button>
+  </div>
+
+  <div class="product_description">
     <p><strong>Beskrivning</strong></p>
     <p>{{ shoe.product_Description }}</p>
-    <br />
-    <button class="btn btn-primary">Lägg i varukorg</button>
   </div>
 </div>

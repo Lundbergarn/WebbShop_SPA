@@ -18,6 +18,12 @@ export class ProductService {
       .pipe(catchError(this.handleError<Shoe[]>("getShoes", [])));
   }
 
+  getShoe(id): Observable<Shoe> {
+    return this.http
+      .get<Shoe>(this.Url + "shoe/" + id)
+      .pipe(catchError(this.handleError<Shoe>("getShoes")));
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

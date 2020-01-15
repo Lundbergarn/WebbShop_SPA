@@ -1,0 +1,25 @@
+<h1 class="mt-5" style="text-align: center;">Basket</h1>
+
+<div class="container">
+  <div *ngFor="let row of orders; let i = index" class="mb-3">
+    <mat-card-subtitle
+      ><strong>Product {{ i + 1 }}: </strong>
+    </mat-card-subtitle>
+    <mat-card-subtitle
+      ><strong>Shoe:</strong> {{ shoes[i].name }}</mat-card-subtitle
+    >
+    <mat-card-subtitle
+      ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
+    >
+    <mat-card-subtitle
+      ><strong>Price:</strong> {{ shoes[i].price }}:-</mat-card-subtitle
+    >
+    <picture>
+      <source media="(min-width:0px)" [srcset]="shoeUrl(i)" />
+      <img mat-card-image src="" alt="Photo of a Shiba Inu" />
+    </picture>
+  </div>
+
+  <p>You need to login to be able to checkout.</p>
+  <button class="btn btn-success" [disabled]="!checkout">Checkout</button>
+</div>

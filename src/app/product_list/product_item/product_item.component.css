@@ -10,16 +10,20 @@ picture img {
   background-color: #fff;
   cursor: pointer;
   transition: ease 0.3s;
-  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .mat-card:hover {
   background-color: #f1f1f1;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
   .mat-card {
-    margin: 10px 0;
+    margin: 20px;
     min-height: auto;
+    width: auto;
   }
   .mat-card-title {
     font-size: 20px;

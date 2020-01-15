@@ -1,3 +1,10 @@
 .mat-card {
   border: 1px solid #ccc;
 }
+summary {
+  font-size: 20px;
+}
+summary,
+.mat-card-subtitle {
+  text-align: left;
+}

@@ -1,4 +1,4 @@
-import { order_Rows } from "./order_rows.module";
+import { order_Rows } from "./order_rows.model";
 
 export class Order {
   public id: number;

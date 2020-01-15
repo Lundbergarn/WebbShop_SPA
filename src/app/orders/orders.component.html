@@ -1,1 +1,30 @@
 <h1 class="mt-5" style="text-align: center;">Orders</h1>
+
+<h3 *ngIf="!customer" style="text-align: center;">
+  Logg in to view all orders.
+</h3>
+
+<div class="container">
+  <mat-card *ngFor="let order of orders; let i = index" class="mb-3">
+    <mat-card-title class="mb-3"
+      ><strong>Order:</strong> {{ i }}</mat-card-title
+    >
+    <mat-card-subtitle
+      ><strong>Order-date:</strong>
+      {{ order.order_Date | date: "fullDate" }}</mat-card-subtitle
+    >
+    <div *ngFor="let row of order.order_Rows; let i = index" class="mb-3">
+      <mat-card-subtitle
+        ><strong>Shoe {{ i + 1 }}: </strong>
+        {{ row.shoe.name }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
+      >
+      <picture>
+        <source media="(min-width:0px)" [srcset]="row.shoe.image_Url" />
+        <img mat-card-image src="" alt="Photo of a Shiba Inu" />
+      </picture>
+    </div>
+  </mat-card>
+</div>

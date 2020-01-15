@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Shoe } from "src/app/shoe.model";
 
 @Component({
   selector: "app-product_item",
@@ -8,7 +9,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
   styleUrls: ["./product_item.component.css"]
 })
 export class Product_itemComponent implements OnInit {
-  @Input() shoe;
+  @Input() shoe: Shoe;
 
   constructor(
     private http: HttpClient,

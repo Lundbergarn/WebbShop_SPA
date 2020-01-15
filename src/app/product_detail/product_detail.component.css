@@ -3,11 +3,14 @@ img {
   min-width: 253px;
   width: 100%;
   margin-bottom: 50px;
+  margin-top: 15%;
 }
-picture,
-.product_content {
+picture {
   padding: 10px 30px;
   width: 50%;
+}
+.product_content {
+  width: 30%;
 }
 
 .flex {
@@ -16,6 +19,10 @@ picture,
   flex-wrap: wrap;
   margin: 100px auto;
   justify-content: space-around;
+}
+
+.product_description {
+  margin: 40px 0;
 }
 
 @media screen and (max-width: 978px) {
