@@ -11,6 +11,7 @@ import { order_Rows } from "./order_rows.model";
 export class OrderService {
   Url: string = "http://localhost:5000/api/";
   verifiedCustomer = new Subject<boolean>();
+  isCustomerLoggedIn: boolean = false;
 
   basketChanged = new Subject<order_Rows[]>();
   private basketProducts: order_Rows[] = [];
@@ -18,11 +19,16 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   loggedIn() {
-    this.verifiedCustomer.next(true);
+    this.isCustomerLoggedIn = true;
+    this.verifiedCustomer.next(this.isCustomerLoggedIn);
   }
 
   getBasketOrders() {
     return this.basketProducts.slice();
+  }
+
+  emptyBasketOrders() {
+    this.basketProducts = [];
   }
 
   // Add to local basket
@@ -53,17 +59,22 @@ export class OrderService {
       .pipe(catchError(this.handleError<Customer>("getCustomer")));
   }
 
+  // Skicka hela ordern samtidigt
+  // Spara Order i backend och vänta på det nya OrderID
+  // Sätt OrderID i varje Order_Row och spara dessa separat
+  // Radera localhost basket
+
   // Skicka en row i taget
-  sendCustomerOrderRow(orderRow: order_Rows) {
+  sendCustomerOrder(order) {
     return this.http
-      .post<order_Rows>(this.Url + "customer", JSON.stringify(orderRow), {
+      .post(this.Url + "customer", order, {
         headers: new HttpHeaders()
           .set("Authorization", "Bearer " + localStorage.getItem("token"))
           .set("Content-Type", "application/json")
       })
       .pipe(
-        tap((row: order_Rows) => console.log(`added order`, row)),
-        catchError(this.handleError<order_Rows>("addProduct"))
+        tap((order: Order) => console.log(`Sent order `, order)),
+        catchError(this.handleError<order_Rows>("sendCustomerOrder"))
       );
   }
 

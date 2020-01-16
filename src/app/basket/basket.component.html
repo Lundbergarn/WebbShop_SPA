@@ -1,25 +1,34 @@
 <h1 class="mt-5" style="text-align: center;">Basket</h1>
 
 <div class="container">
-  <div *ngFor="let row of orders; let i = index" class="mb-3">
+  <div *ngFor="let row of order_rows; let i = index" class="mb-3">
     <mat-card-subtitle
       ><strong>Product {{ i + 1 }}: </strong>
     </mat-card-subtitle>
     <mat-card-subtitle
-      ><strong>Shoe:</strong> {{ shoes[i].name }}</mat-card-subtitle
+      ><strong>Shoe:</strong> {{ shoeData(i, "name") }}</mat-card-subtitle
     >
     <mat-card-subtitle
       ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
     >
     <mat-card-subtitle
-      ><strong>Price:</strong> {{ shoes[i].price }}:-</mat-card-subtitle
+      ><strong>Price:</strong> {{ shoeData(i, "price") }}:-</mat-card-subtitle
     >
     <picture>
-      <source media="(min-width:0px)" [srcset]="shoeUrl(i)" />
+      <source media="(min-width:0px)" [srcset]="shoeData(i, 'shoe')" />
       <img mat-card-image src="" alt="Photo of a Shiba Inu" />
     </picture>
   </div>
 
-  <p>You need to login to be able to checkout.</p>
-  <button class="btn btn-success" [disabled]="!checkout">Checkout</button>
+  <p *ngIf="order_rows.length === 0" style="text-align: center;">
+    You have no products in the basket yet.
+  </p>
+  <button
+    *ngIf="order_rows.length !== 0"
+    class="btn btn-success"
+    (click)="submitOrder()"
+    [disabled]="order_rows.length == 0"
+  >
+    Checkout
+  </button>
 </div>

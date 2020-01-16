@@ -4,6 +4,8 @@ import { Subscription } from "rxjs";
 import { order_Rows } from "../order_rows.model";
 import { ProductService } from "../product.service";
 import { Shoe } from "../shoe.model";
+import { Order } from "../order.model";
+import { AlertifyService } from "../_services/alertify.service";
 
 @Component({
   selector: "app-basket",
@@ -11,7 +13,7 @@ import { Shoe } from "../shoe.model";
   styleUrls: ["./basket.component.css"]
 })
 export class BasketComponent implements OnInit, OnDestroy {
-  orders: order_Rows[];
+  order_rows: order_Rows[];
   subscription: Subscription;
   checkout: boolean = false;
 
@@ -19,29 +21,36 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   constructor(
     private orderService: OrderService,
-    private productService: ProductService
+    private productService: ProductService,
+    private alertify: AlertifyService
   ) {}
 
   // To not get undefined from shoe URL in HTML loop
-  shoeUrl(i) {
+  shoeData(i: number, type: string) {
     if (this.shoes[i] == undefined) {
       return null;
     }
-    return this.shoes[i].image_Url;
+    if (type == "shoe") {
+      return this.shoes[i].image_Url;
+    } else if (type == "price") {
+      return this.shoes[i].price;
+    } else {
+      return this.shoes[i].name;
+    }
   }
 
   ngOnInit() {
     this.subscription = this.orderService.basketChanged.subscribe(
       (orderRows: order_Rows[]) => {
-        this.orders = orderRows;
+        this.order_rows = orderRows;
       }
     );
     this.getBasketOrders();
-    this.subscription = this.orderService.verifiedCustomer.subscribe(el => {
-      this.checkout = true;
-    });
+    // this.subscription = this.orderService.verifiedCustomer.subscribe(el => {
+    //   this.checkout = el;
+    // });
 
-    this.orders.forEach(el => {
+    this.order_rows.forEach(el => {
       this.productService
         .getShoe(el.shoeId)
         .subscribe(shoes => this.shoes.push(shoes));
@@ -49,10 +58,21 @@ export class BasketComponent implements OnInit, OnDestroy {
   }
 
   getBasketOrders(): void {
-    this.orders = this.orderService.getBasketOrders();
+    this.order_rows = this.orderService.getBasketOrders();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  submitOrder() {
+    var orderToSend = {
+      order_Rows: this.order_rows
+    };
+    this.orderService.sendCustomerOrder(orderToSend).subscribe(() => {
+      this.alertify.success(`Your order is sent!`);
+      this.orderService.emptyBasketOrders();
+      this.checkout = false;
+    });
   }
 }
