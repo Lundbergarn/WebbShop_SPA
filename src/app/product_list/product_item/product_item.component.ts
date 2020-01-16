@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { Shoe } from "src/app/shoe.model";
+import { Shoe } from "src/app/_models/shoe";
 
 @Component({
   selector: "app-product_item",

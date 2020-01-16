@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Params, Router, ActivatedRoute } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { Shoe } from "../shoe.model";
 import { ProductService } from "../product.service";
 import { OrderService } from "../order.service";
-import { order_Rows } from "../order_rows.model";
+import { order_Rows } from "../_models/order_rows";
 import { AlertifyService } from "../_services/alertify.service";
 
 @Component({
@@ -25,7 +23,8 @@ export class Product_detailComponent implements OnInit {
   orderRow: order_Rows = {
     qty: null,
     shoeId: null,
-    orderId: null
+    orderId: null,
+    shoe: null
   };
 
   contactMethods = [

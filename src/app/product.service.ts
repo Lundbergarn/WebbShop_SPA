@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { Shoe } from "./shoe.model";
+import { Shoe } from "./_models/shoe";
 import { tap, catchError } from "rxjs/operators";
 
 @Injectable()

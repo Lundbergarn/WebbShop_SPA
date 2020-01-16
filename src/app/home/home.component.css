@@ -1,8 +1,29 @@
 .jumbotron {
   /* background-color: #fff; */
   /* height: 100%; */
+  background-image: url(https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 56px);
+  /* padding-bottom: 300px; */
+  margin-bottom: 0;
+  /* color: white; */
+  background-position-y: -200px;
+  border-radius: 0;
+  filter: saturate(-50);
 }
 
 .btn {
-  width: 50%;
+  max-width: 300px;
+  padding: 10px 70px;
+}
+
+hr {
+  border-color: #aaa;
+}
+
+@media screen and (max-width: 768px) {
+  .jumbotron {
+    background-position-y: 0;
+  }
 }

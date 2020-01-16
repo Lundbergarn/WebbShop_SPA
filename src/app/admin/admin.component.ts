@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { OrderService } from "../order.service";
-import { Order } from "../order.model";
+import { Order } from "../_models/order";
 import { Subscription } from "rxjs";
 import { AuthService } from "../_services/auth.service";
 import { AlertifyService } from "../_services/alertify.service";

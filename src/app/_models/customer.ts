@@ -1,8 +1,9 @@
-import { Order } from "./order.model";
+import { Order } from "./order";
 
-export class Customer {
+export interface Customer {
   id: number;
   email: string;
+  userName: string;
   first_Name: string;
   last_Name: string;
   phone: string;

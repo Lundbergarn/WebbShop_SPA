@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { OrderService } from "../order.service";
 import { Subscription } from "rxjs";
-import { order_Rows } from "../order_rows.model";
+import { order_Rows } from "../_models/order_rows";
 import { ProductService } from "../product.service";
-import { Shoe } from "../shoe.model";
-import { Order } from "../order.model";
+import { Shoe } from "../_models/shoe";
 import { AlertifyService } from "../_services/alertify.service";
 
 @Component({

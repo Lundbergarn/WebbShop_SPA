@@ -11,4 +11,21 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f4f4f4;
+}
+
+.btn-primary,
+.btn-success {
+  background-color: #cec001;
+  border-color: #cec001;
+}
+
+.btn-default {
+  background-color: grey;
+  border-color: grey;
+  color: white;
+}
+
+.btn {
+  margin-bottom: 20px;
 }

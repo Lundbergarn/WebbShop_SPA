@@ -26,6 +26,7 @@
   <button
     *ngIf="order_rows.length !== 0"
     class="btn btn-success"
+    style="float: right"
     (click)="submitOrder()"
     [disabled]="order_rows.length == 0"
   >

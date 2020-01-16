@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { OrderService } from "../order.service";
-import { Order } from "../order.model";
+import { Order } from "../_models/order";
 import { Subscription } from "rxjs";
-import { Customer } from "../customer.model";
-import { Params, Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-orders",

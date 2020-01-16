@@ -1,8 +1,8 @@
 .app-register {
-  width: 600px;
+  width: 400px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 568px) {
   .app-register {
     width: 90vw;
   }

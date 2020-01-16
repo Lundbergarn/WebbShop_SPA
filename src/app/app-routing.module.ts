@@ -15,8 +15,8 @@ const appRoutes: Routes = [
   { path: "products", component: Product_listComponent },
   { path: "orders", component: OrdersComponent },
   { path: "basket", component: BasketComponent },
-  { path: "admin", component: AdminComponent }
-  // { path: "**", redirectTo: "" }
+  { path: "admin", component: AdminComponent },
+  { path: "**", redirectTo: "/start" }
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { Shoe } from "../shoe.model";
+import { Shoe } from "../_models/shoe";
 import { ProductService } from "../product.service";
 
 import { AuthService } from "../_services/auth.service";

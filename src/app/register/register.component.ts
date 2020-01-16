@@ -16,9 +16,7 @@ export class RegisterComponent implements OnInit {
     private alertify: AlertifyService
   ) {}
 
-  ngOnInit() {
-    this.alertify.success("Hello");
-  }
+  ngOnInit() {}
 
   register() {
     this.authService.register(this.model).subscribe(
