@@ -5,6 +5,7 @@ import { order_Rows } from "../_models/order_rows";
 import { ProductService } from "../product.service";
 import { Shoe } from "../_models/shoe";
 import { AlertifyService } from "../_services/alertify.service";
+import { CustomerService } from "../customer.service";
 
 @Component({
   selector: "app-basket",
@@ -15,13 +16,15 @@ export class BasketComponent implements OnInit, OnDestroy {
   order_rows: order_Rows[];
   subscription: Subscription;
   checkout: boolean = false;
+  customer: string = "";
 
   shoes: Shoe[] = [];
 
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private customerService: CustomerService
   ) {}
 
   // To not get undefined from shoe URL in HTML loop
@@ -65,6 +68,12 @@ export class BasketComponent implements OnInit, OnDestroy {
   }
 
   submitOrder() {
+    this.customer = this.customerService.getUserName();
+
+    if (this.customer === "") {
+      this.alertify.warning("You need to log in first");
+      return;
+    }
     var orderToSend = {
       order_Rows: this.order_rows
     };
@@ -72,6 +81,7 @@ export class BasketComponent implements OnInit, OnDestroy {
       this.alertify.success(`Your order is sent!`);
       this.orderService.emptyBasketOrders();
       this.checkout = false;
+      this.order_rows = [];
     });
   }
 }

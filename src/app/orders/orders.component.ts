@@ -34,10 +34,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   getCustomerOrders(): void {
-    this.orderService.getCustomer().subscribe(customer => {
-      this.orders = customer.order;
-      console.log(customer.order);
-    });
+    this.orderService
+      .getCustomer()
+      .subscribe(customer => (this.orders = customer.order));
   }
 
   ngOnDestroy() {

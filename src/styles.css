@@ -16,8 +16,8 @@ body {
 
 .btn-primary,
 .btn-success {
-  background-color: #cec001;
-  border-color: #cec001;
+  /* background-color: #cec001;
+  border-color: #cec001; */
 }
 
 .btn-default {

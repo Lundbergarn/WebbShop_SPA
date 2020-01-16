@@ -2,18 +2,20 @@
 
 <div class="container">
   <div *ngFor="let row of order_rows; let i = index" class="mb-3">
-    <mat-card-subtitle
-      ><strong>Product {{ i + 1 }}: </strong>
-    </mat-card-subtitle>
-    <mat-card-subtitle
-      ><strong>Shoe:</strong> {{ shoeData(i, "name") }}</mat-card-subtitle
-    >
-    <mat-card-subtitle
-      ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
-    >
-    <mat-card-subtitle
-      ><strong>Price:</strong> {{ shoeData(i, "price") }}:-</mat-card-subtitle
-    >
+    <div>
+      <mat-card-subtitle
+        ><strong>Product {{ i + 1 }}: </strong>
+      </mat-card-subtitle>
+      <mat-card-subtitle
+        ><strong>Shoe:</strong> {{ shoeData(i, "name") }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        ><strong>Price:</strong> {{ shoeData(i, "price") }}:-</mat-card-subtitle
+      >
+    </div>
     <picture>
       <source media="(min-width:0px)" [srcset]="shoeData(i, 'shoe')" />
       <img mat-card-image src="" alt="Photo of a Shiba Inu" />
