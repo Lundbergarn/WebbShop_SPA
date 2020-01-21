@@ -18,6 +18,7 @@ export class CheckoutComponent implements OnInit {
   customer: string = "";
 
   model: any = {};
+  customerData: any = {};
 
   constructor(
     private orderService: OrderService,
@@ -34,6 +35,8 @@ export class CheckoutComponent implements OnInit {
       this.model.LastName = el.lastName;
       this.model.Phone = el.phone;
       this.model.Address = el.address;
+
+      this.customerData = el;
     });
   }
 
@@ -45,12 +48,20 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-    this.customerService.sendCustomerData(this.model).subscribe(() => {
-      this.alertify.success("Userdata updated");
-    });
+    // Check if no user changes
+    if (
+      this.customerData.firstName !== this.model.FirstName ||
+      this.customerData.lastName !== this.model.LastName ||
+      this.customerData.phone !== this.model.Phone ||
+      this.customerData.address !== this.model.Address
+    ) {
+      this.customerService.sendCustomerData(this.model).subscribe(() => {
+        this.alertify.success("Userdata updated");
+      });
+    }
 
     var orderToSend = {
-      order_Rows: this.orderRows
+      orderRows: this.orderRows
     };
 
     this.orderService.sendCustomerOrder(orderToSend).subscribe(() => {

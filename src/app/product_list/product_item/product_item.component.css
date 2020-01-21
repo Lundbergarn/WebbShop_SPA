@@ -16,7 +16,7 @@ picture img {
   flex-wrap: wrap;
 }
 .mat-card:hover {
-  background-color: #bcccb7;
+  background-color: #e6ffdf;
 }
 
 @media screen and (max-width: 768px) {

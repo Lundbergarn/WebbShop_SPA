@@ -62,7 +62,12 @@
     </div>
   </div>
 
-  <button class="btn btn-success" style="float: right;" (click)="submitOrder()">
+  <button
+    class="btn btn-success"
+    style="float: right;"
+    (click)="submitOrder()"
+    [disabled]="!registerForm.form.valid"
+  >
     Submit order
   </button>
 </div>

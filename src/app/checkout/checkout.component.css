@@ -2,6 +2,9 @@
   margin: 0 auto;
   width: 600px;
 }
+.container {
+  padding-bottom: 100px;
+}
 .product_row {
   display: flex;
   justify-content: space-between;
