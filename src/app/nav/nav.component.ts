@@ -4,6 +4,7 @@ import { AlertifyService } from "../_services/alertify.service";
 import { OrderService } from "../order.service";
 import { CustomerService } from "../customer.service";
 import { Subscription } from "rxjs";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-nav",
@@ -21,7 +22,9 @@ export class NavComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private alertify: AlertifyService,
     private orderService: OrderService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -40,10 +43,15 @@ export class NavComponent implements OnInit, OnDestroy {
     this.authService.login(this.model, "customer/auth").subscribe(
       () => {
         this.alertify.success("logged in successfully");
+
         this.orderService.loggedIn();
+
         this.customerService.setUserName(this.model.username);
+
         this.user = this.model.username;
         this.isLoading = false;
+
+        this.router.navigate(["products"]);
       },
       error => {
         this.alertify.error(error);
