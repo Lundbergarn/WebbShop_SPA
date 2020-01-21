@@ -10,8 +10,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(model: any, user: string) {
-    return this.http.post(this.baseUrl + user + "/login", model).pipe(
+  login(model: any, endpoint: string) {
+    return this.http.post(this.baseUrl + endpoint + "/login", model).pipe(
       map((response: any) => {
         const user = response;
         if (user) {
@@ -21,7 +21,7 @@ export class AuthService {
     );
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + "register", model);
+  register(model: any, endpoint: string) {
+    return this.http.post(this.baseUrl + endpoint + "/register", model);
   }
 }

@@ -4,8 +4,8 @@ export interface Customer {
   id: number;
   email: string;
   userName: string;
-  first_Name: string;
-  last_Name: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   address: string;
   order: Order[];

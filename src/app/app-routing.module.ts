@@ -7,6 +7,7 @@ import { OrdersComponent } from "./orders/orders.component";
 import { Product_detailComponent } from "./product_detail/product_detail.component";
 import { AdminComponent } from "./admin/admin.component";
 import { BasketComponent } from "./basket/basket.component";
+import { CheckoutComponent } from "./checkout/checkout.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/start", pathMatch: "full" },
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: "products", component: Product_listComponent },
   { path: "orders", component: OrdersComponent },
   { path: "basket", component: BasketComponent },
+  { path: "basket/checkout", component: CheckoutComponent },
   { path: "admin", component: AdminComponent },
   { path: "**", redirectTo: "/start" }
 ];

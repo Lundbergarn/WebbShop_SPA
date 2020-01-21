@@ -1,4 +1,4 @@
-export interface order_Rows {
+export interface orderRows {
   // public id: number;
   qty: number;
   shoeId: number;

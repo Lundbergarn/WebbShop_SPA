@@ -24,10 +24,14 @@ export class NavComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.orderService.getCustomer().subscribe(customer => {
-      this.user = customer.userName || null;
-      this.customerService.setUserName(customer.userName);
-    });
+    if (localStorage.getItem("token")) {
+      this.subscription = this.orderService
+        .getCustomer()
+        .subscribe(customer => {
+          this.user = customer.userName || null;
+          this.customerService.setUserName(customer.userName);
+        });
+    }
   }
 
   login() {

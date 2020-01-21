@@ -1,0 +1,68 @@
+<form #registerForm="ngForm" class="app-register">
+  <h2 class="text-center mt-3">Checkout</h2>
+  <hr />
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      required
+      name="FirstName"
+      placeholder="First name"
+      [(ngModel)]="model.FirstName"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      required
+      name="LastName"
+      placeholder="Last name"
+      [(ngModel)]="model.LastName"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="number"
+      class="form-control"
+      required
+      name="Phone"
+      placeholder="Phone number"
+      [(ngModel)]="model.Phone"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      required
+      name="Address"
+      placeholder="Address"
+      [(ngModel)]="model.Address"
+    />
+  </div>
+</form>
+
+<div class="container">
+  <div *ngFor="let row of orderRows; let i = index">
+    <div class="product_row">
+      <mat-card-subtitle
+        ><strong>Product {{ i + 1 }}: </strong>
+      </mat-card-subtitle>
+      <mat-card-subtitle
+        ><strong>ShoeId:</strong> {{ row.shoeId }}
+      </mat-card-subtitle>
+      <mat-card-subtitle
+        ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
+      >
+    </div>
+  </div>
+
+  <button class="btn btn-success" style="float: right;" (click)="submitOrder()">
+    Submit order
+  </button>
+</div>

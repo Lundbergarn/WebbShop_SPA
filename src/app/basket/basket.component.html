@@ -1,7 +1,7 @@
 <h1 class="mt-5" style="text-align: center;">Basket</h1>
 
 <div class="container">
-  <div *ngFor="let row of order_rows; let i = index" class="mb-3">
+  <div *ngFor="let row of orderRows; let i = index" class="mb-3">
     <div>
       <mat-card-subtitle
         ><strong>Product {{ i + 1 }}: </strong>
@@ -22,15 +22,15 @@
     </picture>
   </div>
 
-  <p *ngIf="order_rows.length === 0" style="text-align: center;">
+  <p *ngIf="orderRows.length === 0" style="text-align: center;">
     You have no products in the basket yet.
   </p>
   <button
-    *ngIf="order_rows.length !== 0"
+    *ngIf="orderRows.length !== 0"
     class="btn btn-success"
     style="float: right"
-    (click)="submitOrder()"
-    [disabled]="order_rows.length == 0"
+    (click)="handleRoute()"
+    [disabled]="verified === false"
   >
     Checkout
   </button>

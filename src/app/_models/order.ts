@@ -1,8 +1,8 @@
-import { order_Rows } from "./order_rows";
+import { orderRows } from "./orderRows";
 
 export interface Order {
   id: number;
-  order_Date: Date;
-  order_Rows: order_Rows[];
+  orderDate: Date;
+  orderRows: orderRows[];
   customerId: number;
 }

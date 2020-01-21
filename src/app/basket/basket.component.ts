@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { OrderService } from "../order.service";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Subscription } from "rxjs";
-import { order_Rows } from "../_models/order_rows";
+
+import { OrderService } from "../order.service";
+import { orderRows } from "../_models/orderRows";
 import { ProductService } from "../product.service";
 import { Shoe } from "../_models/shoe";
-import { AlertifyService } from "../_services/alertify.service";
 import { CustomerService } from "../customer.service";
 
 @Component({
@@ -13,17 +14,18 @@ import { CustomerService } from "../customer.service";
   styleUrls: ["./basket.component.css"]
 })
 export class BasketComponent implements OnInit, OnDestroy {
-  order_rows: order_Rows[];
+  orderRows: orderRows[];
   subscription: Subscription;
   checkout: boolean = false;
-  customer: string = "";
+  verified: boolean = false;
 
   shoes: Shoe[] = [];
 
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
-    private alertify: AlertifyService,
+    private router: Router,
+    private route: ActivatedRoute,
     private customerService: CustomerService
   ) {}
 
@@ -43,45 +45,37 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.orderService.basketChanged.subscribe(
-      (orderRows: order_Rows[]) => {
-        this.order_rows = orderRows;
+      (orderRows: orderRows[]) => {
+        this.orderRows = orderRows;
       }
     );
     this.getBasketOrders();
-    // this.subscription = this.orderService.verifiedCustomer.subscribe(el => {
-    //   this.checkout = el;
-    // });
 
-    this.order_rows.forEach(el => {
+    this.orderRows.forEach(el => {
       this.productService
         .getShoe(el.shoeId)
         .subscribe(shoes => this.shoes.push(shoes));
     });
+
+    // Check if logged in on enter
+    if (localStorage.getItem("token")) {
+      this.verified = true;
+    }
+    // Check if logging in
+    this.orderService.verifiedCustomer.subscribe(el => {
+      this.verified = el;
+    });
   }
 
   getBasketOrders(): void {
-    this.order_rows = this.orderService.getBasketOrders();
+    this.orderRows = this.orderService.getBasketOrders();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  submitOrder() {
-    this.customer = this.customerService.getUserName();
-
-    if (this.customer === "") {
-      this.alertify.warning("You need to log in first");
-      return;
-    }
-    var orderToSend = {
-      order_Rows: this.order_rows
-    };
-    this.orderService.sendCustomerOrder(orderToSend).subscribe(() => {
-      this.alertify.success(`Your order is sent!`);
-      this.orderService.emptyBasketOrders();
-      this.checkout = false;
-      this.order_rows = [];
-    });
+  handleRoute() {
+    this.router.navigate(["checkout"], { relativeTo: this.route });
   }
 }

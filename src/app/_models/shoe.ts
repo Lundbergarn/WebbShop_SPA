@@ -3,6 +3,6 @@ export interface Shoe {
   name: string;
   brand: string;
   price: number;
-  product_Description: string;
+  productDescription: string;
   image_Url: string;
 }

@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { tap, catchError, map } from "rxjs/operators";
 import { Order } from "./_models/order";
 import { Customer } from "./_models/customer";
-import { order_Rows } from "./_models/order_rows";
+import { orderRows } from "./_models/orderRows";
 
 @Injectable()
 export class OrderService {
@@ -13,10 +13,14 @@ export class OrderService {
   verifiedCustomer = new Subject<boolean>();
   isCustomerLoggedIn: boolean = false;
 
-  basketChanged = new Subject<order_Rows[]>();
-  private basketProducts: order_Rows[] = [];
+  private basketProducts: orderRows[] = [];
+  basketChanged = new Subject<orderRows[]>();
 
   constructor(private http: HttpClient) {}
+
+  getCustomerLoggedIn() {
+    return this.isCustomerLoggedIn;
+  }
 
   loggedIn() {
     this.isCustomerLoggedIn = true;
@@ -32,7 +36,7 @@ export class OrderService {
   }
 
   // Add to local basket
-  addProduct(orderRow: order_Rows) {
+  addProduct(orderRow: orderRows) {
     this.basketProducts.push(orderRow);
     this.basketChanged.next(this.basketProducts.slice());
   }
@@ -59,11 +63,6 @@ export class OrderService {
       .pipe(catchError(this.handleError<Customer>("getCustomer")));
   }
 
-  // Skicka hela ordern samtidigt
-  // Spara Order i backend och vänta på det nya OrderID
-  // Sätt OrderID i varje Order_Row och spara dessa separat
-  // Radera localhost basket
-
   // Skicka en row i taget
   sendCustomerOrder(order) {
     return this.http
@@ -74,7 +73,7 @@ export class OrderService {
       })
       .pipe(
         tap((order: Order) => console.log(`Sent order `, order)),
-        catchError(this.handleError<order_Rows>("sendCustomerOrder"))
+        catchError(this.handleError<orderRows>("sendCustomerOrder"))
       );
   }
 
