@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Shoe } from "../_models/shoe";
 import { ProductService } from "../product.service";
 import { AlertifyService } from "../_services/alertify.service";
+import { Size } from "../_models/size";
 
 @Component({
   selector: "app-product_list",
@@ -21,7 +22,7 @@ export class Product_listComponent implements OnInit {
   ngOnInit() {
     this.getShoes();
   }
-  // shoes => (this.shoes = shoes),
+
   getShoes(): void {
     this.isLoading = true;
     this.productService.getShoes().subscribe(res => {

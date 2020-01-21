@@ -21,6 +21,10 @@ picture {
   justify-content: space-around;
 }
 
+option {
+  font-size: 16px;
+}
+
 .product_description {
   margin: 40px 0;
 }

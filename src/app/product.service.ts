@@ -3,6 +3,7 @@ import { Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
 import { Shoe } from "./_models/shoe";
+import { Size } from "./_models/size";
 import { tap, catchError } from "rxjs/operators";
 import { AlertifyService } from "./_services/alertify.service";
 
@@ -11,7 +12,6 @@ export class ProductService {
   constructor(private http: HttpClient, private alertify: AlertifyService) {}
   Url: string = "http://localhost:5000/api/";
 
-  /** GET heroes from the server */
   getShoes(): Observable<Shoe[]> {
     return this.http
       .get<Shoe[]>(this.Url + "shoe")
@@ -21,7 +21,19 @@ export class ProductService {
   getShoe(id): Observable<Shoe> {
     return this.http
       .get<Shoe>(this.Url + "shoe/" + id)
-      .pipe(catchError(this.handleError<Shoe>("getShoes")));
+      .pipe(catchError(this.handleError<Shoe>("getShoe")));
+  }
+
+  getSizes(): Observable<Size[]> {
+    return this.http
+      .get<Size[]>(this.Url + "size")
+      .pipe(catchError(this.handleError<Size[]>("getSizes", [])));
+  }
+
+  getSize(id): Observable<Size> {
+    return this.http
+      .get<Size>(this.Url + "size/" + id)
+      .pipe(catchError(this.handleError<Size>("getSize")));
   }
 
   /**

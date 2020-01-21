@@ -13,30 +13,15 @@
 
     <!-- // Form select  -->
     <div class="form-group">
-      <label for="contactMethod">Välj färg</label>
+      <label for="sizePicker">Välj storlek</label>
       <select
-        name="contactMethod"
-        id="contactMethod"
+        name="sizePicker"
+        id="sizePicker"
         class="form-control"
-        [(ngModel)]="contact.contactMethod"
+        [(ngModel)]="size.id"
       >
-        <option *ngFor="let method of contactMethods" [value]="method.id">{{
-          method.label
-        }}</option>
-      </select>
-    </div>
-
-    <!-- // Form select  -->
-    <div class="form-group">
-      <label for="contactMethod">Välj storlek</label>
-      <select
-        name="contactMethod"
-        id="contactMethod"
-        class="form-control"
-        [(ngModel)]="contact.contactMethod"
-      >
-        <option *ngFor="let method of contactMethods" [value]="method.id">{{
-          method.label
+        <option *ngFor="let size of sizes" [value]="size.id">{{
+          size.sizeDescription
         }}</option>
       </select>
     </div>
