@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { Shoe } from "../_models/shoe";
 import { ProductService } from "../product.service";
+import { AlertifyService } from "../_services/alertify.service";
 
 @Component({
   selector: "app-product_list",
@@ -10,14 +11,22 @@ import { ProductService } from "../product.service";
 })
 export class Product_listComponent implements OnInit {
   shoes: Shoe[];
+  isLoading: boolean;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private alertify: AlertifyService
+  ) {}
 
   ngOnInit() {
     this.getShoes();
   }
-
+  // shoes => (this.shoes = shoes),
   getShoes(): void {
-    this.productService.getShoes().subscribe(shoes => (this.shoes = shoes));
+    this.isLoading = true;
+    this.productService.getShoes().subscribe(res => {
+      this.shoes = res;
+      this.isLoading = false;
+    });
   }
 }

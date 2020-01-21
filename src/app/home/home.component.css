@@ -4,7 +4,7 @@
   background-image: url(https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80);
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 100px);
   /* padding-bottom: 300px; */
   margin-bottom: 0;
   /* color: white; */

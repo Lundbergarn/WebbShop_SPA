@@ -1,4 +1,5 @@
 <div class="flex container">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
   <picture>
     <source media="(min-width:0px)" [srcset]="shoe.image_Url" />
     <img mat-card-image src="" alt="Photo of a Shiba Inu" />

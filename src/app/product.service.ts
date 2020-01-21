@@ -4,10 +4,11 @@ import { HttpClient } from "@angular/common/http";
 
 import { Shoe } from "./_models/shoe";
 import { tap, catchError } from "rxjs/operators";
+import { AlertifyService } from "./_services/alertify.service";
 
 @Injectable()
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private alertify: AlertifyService) {}
   Url: string = "http://localhost:5000/api/";
 
   /** GET heroes from the server */
@@ -31,7 +32,7 @@ export class ProductService {
    */
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      this.alertify.error("Could not receive data.");
       return of(result as T);
     };
   }

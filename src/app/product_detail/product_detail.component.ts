@@ -11,6 +11,8 @@ import { AlertifyService } from "../_services/alertify.service";
   styleUrls: ["./product_detail.component.css"]
 })
 export class Product_detailComponent implements OnInit {
+  isLoading: boolean = false;
+
   shoe = {
     id: null,
     image_Url: null,
@@ -52,7 +54,11 @@ export class Product_detailComponent implements OnInit {
   }
 
   getShoe(id: number): void {
-    this.productService.getShoe(id).subscribe(shoe => (this.shoe = shoe));
+    this.isLoading = true;
+    this.productService.getShoe(id).subscribe(shoe => {
+      this.shoe = shoe;
+      this.isLoading = false;
+    });
   }
 
   addToCard() {

@@ -19,7 +19,8 @@ import {
   MatCardImage,
   MatGridList,
   MatCardSubtitle,
-  MatCardContent
+  MatCardContent,
+  MatSpinner
 } from "@angular/material/";
 
 import { Product_listComponent } from "./product_list/product_list.component";
@@ -32,6 +33,7 @@ import { ProductService } from "./product.service";
 import { OrderService } from "./order.service";
 import { BasketComponent } from "./basket/basket.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
+import { FooterComponent } from "./footer/footer.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -51,13 +53,15 @@ export function tokenGetter() {
     MatGridList,
     MatCardSubtitle,
     MatCardContent,
+    MatSpinner,
     Product_listComponent,
     Product_itemComponent,
     Product_detailComponent,
     OrdersComponent,
     AdminComponent,
     BasketComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

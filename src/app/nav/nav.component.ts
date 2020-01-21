@@ -15,6 +15,7 @@ export class NavComponent implements OnInit, OnDestroy {
   model: any = {};
   id: any;
   user: string = "";
+  isLoading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -35,15 +36,18 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.isLoading = true;
     this.authService.login(this.model, "customer/auth").subscribe(
       () => {
         this.alertify.success("logged in successfully");
         this.orderService.loggedIn();
         this.customerService.setUserName(this.model.username);
         this.user = this.model.username;
+        this.isLoading = false;
       },
       error => {
         this.alertify.error(error);
+        this.isLoading = false;
       }
     );
   }
