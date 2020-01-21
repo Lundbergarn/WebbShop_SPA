@@ -16,11 +16,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   customer: boolean = false;
   customerId: number;
 
-  constructor(
-    private orderService: OrderService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private orderService: OrderService) {}
 
   ngOnInit() {
     this.subscription = this.orderService.verifiedCustomer.subscribe(el => {

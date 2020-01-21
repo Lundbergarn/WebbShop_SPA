@@ -35,7 +35,7 @@ export class BasketComponent implements OnInit, OnDestroy {
       return null;
     }
     if (type == "shoe") {
-      return this.shoes[i].image_Url;
+      return this.shoes[i].imageUrl;
     } else if (type == "price") {
       return this.shoes[i].price;
     } else {

@@ -1,7 +1,7 @@
 <div class="flex container">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <picture>
-    <source media="(min-width:0px)" [srcset]="shoe.image_Url" />
+    <source media="(min-width:0px)" [srcset]="shoe.imageUrl" />
     <img mat-card-image src="" alt="Photo of a Shiba Inu" />
   </picture>
   <div class="product_content">
@@ -48,6 +48,6 @@
 
   <div class="product_description">
     <p><strong>Beskrivning</strong></p>
-    <p>{{ shoe.product_Description }}</p>
+    <p>{{ shoe.productDescription }}</p>
   </div>
 </div>

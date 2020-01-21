@@ -1,7 +1,7 @@
 <mat-card (click)="handleRoute(shoe.id)">
   <picture>
-    <source media="(min-width:0px)" [srcset]="shoe.image_Url" />
-    <img mat-card-image src="" alt="Photo of a Shiba Inu" />
+    <source media="(min-width:0px)" [srcset]="shoe.imageUrl" />
+    <img mat-card-image src="" [alt]="shoe.name" />
   </picture>
   <mat-card-title style="text-align: center;">
     {{ shoe.name }}

@@ -15,7 +15,7 @@ export class Product_detailComponent implements OnInit {
 
   shoe = {
     id: null,
-    image_Url: null,
+    imageUrl: null,
     name: null,
     brand: null,
     price: null,
