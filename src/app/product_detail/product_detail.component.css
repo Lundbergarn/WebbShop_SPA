@@ -27,12 +27,16 @@ option {
 
 .product_description {
   margin: 40px 0;
+  padding: 0 10px;
 }
 
-@media screen and (max-width: 978px) {
+@media screen and (max-width: 990px) {
   picture,
   .product_content {
     padding: 10px;
     width: 100%;
+  }
+  .product_description {
+    margin: 0;
   }
 }
