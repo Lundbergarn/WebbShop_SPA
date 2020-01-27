@@ -11,8 +11,8 @@
     <h3>{{ shoe.name }}</h3>
     <h3>{{ shoe.price }}:-</h3>
 
-    <!-- // Form select  -->
-    <div class="form-group">
+    <!-- // Form select  Size-->
+    <div class="form-group" style="padding-top: 20px;">
       <label for="sizePicker">Välj storlek</label>
       <select
         name="sizePicker"
@@ -26,6 +26,22 @@
       </select>
     </div>
 
+    <!-- // Form select  Color-->
+    <div class="form-group">
+      <label for="colorPicker">Välj färg</label>
+      <select
+        name="colorPicker"
+        id="colorPicker"
+        class="form-control"
+        [(ngModel)]="color.id"
+      >
+        <option *ngFor="let color of colors" [value]="color.id">{{
+          color.colorDescription
+        }}</option>
+      </select>
+    </div>
+
+    <!-- Add to basket  -->
     <button class="btn btn-primary" (click)="addToCard()">
       Lägg i varukorg
     </button>

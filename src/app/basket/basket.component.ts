@@ -6,7 +6,8 @@ import { OrderService } from "../order.service";
 import { orderRows } from "../_models/orderRows";
 import { ProductService } from "../product.service";
 import { Shoe } from "../_models/shoe";
-import { CustomerService } from "../customer.service";
+import { Size } from "../_models/size";
+import { Color } from "../_models/color";
 
 @Component({
   selector: "app-basket",
@@ -20,13 +21,14 @@ export class BasketComponent implements OnInit, OnDestroy {
   verified: boolean = false;
 
   shoes: Shoe[] = [];
+  colors: Color[] = [];
+  sizes: Size[] = [];
 
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
     private router: Router,
-    private route: ActivatedRoute,
-    private customerService: CustomerService
+    private route: ActivatedRoute
   ) {}
 
   // To not get undefined from shoe URL in HTML loop
@@ -38,6 +40,10 @@ export class BasketComponent implements OnInit, OnDestroy {
       return this.shoes[i].imageUrl;
     } else if (type == "price") {
       return this.shoes[i].price;
+    } else if (type == "color") {
+      return this.colors[i].colorDescription;
+    } else if (type == "size") {
+      return this.sizes[i].sizeDescription;
     } else {
       return this.shoes[i].name;
     }
@@ -52,9 +58,16 @@ export class BasketComponent implements OnInit, OnDestroy {
     this.getBasketOrders();
 
     this.orderRows.forEach(el => {
-      this.productService
-        .getShoe(el.shoeId)
-        .subscribe(shoes => this.shoes.push(shoes));
+      // Subscribe one shoe at a time
+      this.productService.getShoe(el.shoeId).subscribe(shoes => {
+        this.productService
+          .getSize(el.sizeId)
+          .subscribe(size => this.sizes.push(size));
+        this.productService
+          .getColor(el.colorId)
+          .subscribe(color => this.colors.push(color));
+        this.shoes.push(shoes);
+      });
     });
 
     // Check if logged in on enter

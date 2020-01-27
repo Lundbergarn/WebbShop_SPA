@@ -14,10 +14,18 @@
         <mat-card-subtitle
           ><strong>Order-ID:</strong> {{ order.id }}</mat-card-subtitle
         >
-        <div *ngFor="let row of order.orderRows; let i = index" class="mb-3">
+        <div
+          *ngFor="let row of order.orderRows; let i = index"
+          class="mb-3"
+          style="padding-left: 10px"
+        >
           <mat-card-subtitle
             ><strong>Shoe {{ i + 1 }}: </strong>
             {{ row.shoe.name }}</mat-card-subtitle
+          >
+          <mat-card-subtitle
+            ><strong>Size: </strong>
+            {{ row.size.sizeDescription }}</mat-card-subtitle
           >
           <!-- <mat-card-subtitle
         ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle

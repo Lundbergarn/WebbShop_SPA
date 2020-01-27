@@ -5,5 +5,7 @@ export interface orderRows {
   sizeId: number;
   colorId: number;
   shoe: any;
+  size: any;
+  color: any;
   orderId: number;
 }

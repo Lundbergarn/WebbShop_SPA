@@ -24,6 +24,14 @@
       <mat-card-subtitle
         ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
       >
+      <mat-card-subtitle
+        ><strong>Size:</strong>
+        {{ row.size.sizeDescription }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        ><strong>Color:</strong>
+        {{ row.color.colorDescription }}</mat-card-subtitle
+      >
       <picture>
         <source media="(min-width:0px)" [srcset]="row.shoe.imageUrl" />
         <img mat-card-image src="" alt="Photo of a Shiba Inu" />

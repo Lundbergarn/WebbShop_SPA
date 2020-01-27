@@ -6,6 +6,7 @@ import { orderRows } from "../_models/orderRows";
 import { AlertifyService } from "../_services/alertify.service";
 import { Shoe } from "../_models/shoe";
 import { Size } from "../_models/size";
+import { Color } from "../_models/color";
 
 @Component({
   selector: "app-product_detail",
@@ -15,9 +16,9 @@ import { Size } from "../_models/size";
 export class Product_detailComponent implements OnInit {
   isLoading: boolean = false;
   sizes: Size[];
-  size = {
-    id: 106
-  };
+  colors: Color[];
+  size = { id: 106 };
+  color = { id: 101 };
 
   shoe: Shoe = {
     id: null,
@@ -34,6 +35,8 @@ export class Product_detailComponent implements OnInit {
     orderId: null,
     sizeId: null,
     colorId: null,
+    size: null,
+    color: null,
     shoe: null
   };
 
@@ -48,6 +51,7 @@ export class Product_detailComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.getShoe(params["id"]);
       this.getSizes();
+      this.getColors();
     });
   }
 
@@ -65,12 +69,18 @@ export class Product_detailComponent implements OnInit {
     });
   }
 
+  getColors(): void {
+    this.productService.getColors().subscribe(res => {
+      this.colors = res;
+    });
+  }
+
   addToCard() {
     this.orderRow.shoeId = this.shoe.id; // Shoe ID
     this.orderRow.qty = 1;
     this.orderRow.orderId = 1; // Customer ID
     this.orderRow.sizeId = this.size.id; // Size ID
-    this.orderRow.colorId = 105; // Color ID
+    this.orderRow.colorId = this.color.id; // Color ID
 
     this.orderService.addProduct(this.orderRow);
     this.alertify.success(`Added ${this.shoe.name} to the basket.`);

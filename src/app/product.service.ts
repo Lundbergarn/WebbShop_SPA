@@ -4,8 +4,9 @@ import { HttpClient } from "@angular/common/http";
 
 import { Shoe } from "./_models/shoe";
 import { Size } from "./_models/size";
-import { tap, catchError } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 import { AlertifyService } from "./_services/alertify.service";
+import { Color } from "./_models/color";
 
 @Injectable()
 export class ProductService {
@@ -34,6 +35,18 @@ export class ProductService {
     return this.http
       .get<Size>(this.Url + "size/" + id)
       .pipe(catchError(this.handleError<Size>("getSize")));
+  }
+
+  getColors(): Observable<Color[]> {
+    return this.http
+      .get<Color[]>(this.Url + "color")
+      .pipe(catchError(this.handleError<Color[]>("getColors", [])));
+  }
+
+  getColor(id): Observable<Color> {
+    return this.http
+      .get<Color>(this.Url + "color/" + id)
+      .pipe(catchError(this.handleError<Color>("getColors")));
   }
 
   /**
