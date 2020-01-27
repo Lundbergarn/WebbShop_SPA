@@ -6,12 +6,21 @@
       <mat-card-subtitle
         ><strong>Product {{ i + 1 }}: </strong>
       </mat-card-subtitle>
+
       <mat-card-subtitle
         ><strong>Shoe:</strong> {{ shoeData(i, "name") }}</mat-card-subtitle
       >
-      <mat-card-subtitle
-        ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
-      >
+
+      <mat-card-subtitle class="quantity"
+        ><strong>Quantity:</strong>
+        <input
+          type="number"
+          id="quantity"
+          (change)="changeQuantity(i, quantitys[i])"
+          [(ngModel)]="quantitys[i]"
+          [value]="row.qty"
+      /></mat-card-subtitle>
+
       <mat-card-subtitle
         ><strong>Size:</strong> {{ shoeData(i, "size") }}</mat-card-subtitle
       >

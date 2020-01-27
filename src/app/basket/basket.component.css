@@ -24,3 +24,32 @@
     margin: 0px 10px;
   }
 }
+
+.quantity {
+  position: relative;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  /* -webkit-appearance: none; */
+  /* margin: 5px; */
+  padding: 20px 10px;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.quantity input {
+  width: 90px;
+  height: 42px;
+  line-height: 1.65;
+  /* display: block; */
+  margin-left: 10px;
+  padding-left: 20px;
+  border: 1px solid #eee;
+}
+
+.quantity input:focus {
+  outline: 0;
+}

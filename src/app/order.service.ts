@@ -63,6 +63,11 @@ export class OrderService {
       .pipe(catchError(this.handleError<Customer>("getCustomer")));
   }
 
+  // Update quantity
+  updateQuantity(id: number, value: number) {
+    this.basketProducts[id].qty = value;
+    this.basketChanged.next(this.basketProducts.slice());
+  }
   // Skicka en row i taget
   sendCustomerOrder(order) {
     return this.http

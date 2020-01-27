@@ -84,5 +84,15 @@ export class Product_detailComponent implements OnInit {
 
     this.orderService.addProduct(this.orderRow);
     this.alertify.success(`Added ${this.shoe.name} to the basket.`);
+    this.orderRow = {
+      qty: null,
+      shoeId: null,
+      orderId: null,
+      sizeId: null,
+      colorId: null,
+      size: null,
+      color: null,
+      shoe: null
+    };
   }
 }

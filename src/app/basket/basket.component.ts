@@ -20,6 +20,8 @@ export class BasketComponent implements OnInit, OnDestroy {
   checkout: boolean = false;
   verified: boolean = false;
 
+  quantitys: number[] = [];
+
   shoes: Shoe[] = [];
   colors: Color[] = [];
   sizes: Size[] = [];
@@ -33,7 +35,11 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   // To not get undefined from shoe URL in HTML loop
   shoeData(i: number, type: string) {
-    if (this.shoes[i] == undefined) {
+    if (
+      this.shoes[i] == undefined ||
+      this.colors[i] == undefined ||
+      this.sizes[i] == undefined
+    ) {
       return null;
     }
     if (type == "shoe") {
@@ -60,6 +66,7 @@ export class BasketComponent implements OnInit, OnDestroy {
     this.orderRows.forEach(el => {
       // Subscribe one shoe at a time
       this.productService.getShoe(el.shoeId).subscribe(shoes => {
+        this.quantitys.push(el.qty);
         this.productService
           .getSize(el.sizeId)
           .subscribe(size => this.sizes.push(size));
@@ -82,6 +89,10 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   getBasketOrders(): void {
     this.orderRows = this.orderService.getBasketOrders();
+  }
+
+  changeQuantity(id, value) {
+    this.orderService.updateQuantity(id, value);
   }
 
   ngOnDestroy() {
