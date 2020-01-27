@@ -1,6 +1,6 @@
-picture img {
+picture {
   text-align: center;
-  /* margin-bottom: 50px; */
+  margin-bottom: 10px;
 }
 .mat-card {
   padding: 30px 60px;
@@ -17,6 +17,9 @@ picture img {
 }
 .mat-card:hover {
   background-color: #e6ffdf;
+}
+.mat-card-image {
+  width: 90%;
 }
 
 @media screen and (max-width: 768px) {

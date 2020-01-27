@@ -2,8 +2,6 @@ import { Component, OnInit } from "@angular/core";
 
 import { Shoe } from "../_models/shoe";
 import { ProductService } from "../product.service";
-import { AlertifyService } from "../_services/alertify.service";
-import { Size } from "../_models/size";
 
 @Component({
   selector: "app-product_list",
@@ -14,10 +12,7 @@ export class Product_listComponent implements OnInit {
   shoes: Shoe[];
   isLoading: boolean;
 
-  constructor(
-    private productService: ProductService,
-    private alertify: AlertifyService
-  ) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit() {
     this.getShoes();

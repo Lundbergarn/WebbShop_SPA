@@ -12,8 +12,8 @@ import { CheckoutComponent } from "./checkout/checkout.component";
 const appRoutes: Routes = [
   { path: "", redirectTo: "/start", pathMatch: "full" },
   { path: "start", component: HomeComponent },
-  { path: "products/:id", component: Product_detailComponent },
   { path: "products", component: Product_listComponent },
+  { path: "products/:id", component: Product_detailComponent },
   { path: "orders", component: OrdersComponent },
   { path: "basket", component: BasketComponent },
   { path: "basket/checkout", component: CheckoutComponent },

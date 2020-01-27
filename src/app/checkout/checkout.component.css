@@ -5,12 +5,22 @@
 .container {
   padding-bottom: 100px;
 }
+.mat-card-subtitle {
+  margin-bottom: 0;
+}
 .product_row {
   display: flex;
   justify-content: space-between;
   width: 600px;
+  margin: 10px auto;
+  padding-top: 20px;
+  background: white;
+}
+.total {
   margin: 0 auto;
-  padding-top: 10px;
+  text-align: right;
+  width: 600px;
+  font-size: 20px;
 }
 
 @media screen and (max-width: 568px) {

@@ -3,8 +3,10 @@
   <hr />
 
   <div class="form-group">
+    <label for="firstName">First name</label>
     <input
       autofocus
+      id="firstName"
       type="text"
       class="form-control"
       required
@@ -15,7 +17,9 @@
   </div>
 
   <div class="form-group">
+    <label for="lastName">Last name</label>
     <input
+      id="lastName"
       type="text"
       class="form-control"
       required
@@ -26,7 +30,9 @@
   </div>
 
   <div class="form-group">
+    <label for="phone">Phone number</label>
     <input
+      id="phone"
       type="number"
       class="form-control"
       required
@@ -37,7 +43,9 @@
   </div>
 
   <div class="form-group">
+    <label for="address">Address</label>
     <input
+      id="address"
       type="text"
       class="form-control"
       required
@@ -49,18 +57,30 @@
 </form>
 
 <div class="container">
+  <p style="text-align: center; font-size: 20px; margin-top: 50px;">
+    Products in basket: {{ orderRows.length }}
+  </p>
   <div *ngFor="let row of orderRows; let i = index">
-    <div class="product_row">
+    <div class="product_row mat-card">
       <mat-card-subtitle
         ><strong>Product {{ i + 1 }}: </strong>
       </mat-card-subtitle>
+
       <mat-card-subtitle
-        ><strong>ShoeId:</strong> {{ row.shoeId }}
+        ><strong>Shoe:</strong> {{ shoes[i].name }}
       </mat-card-subtitle>
+
       <mat-card-subtitle
         ><strong>Quantity:</strong> {{ row.qty }}</mat-card-subtitle
       >
+
+      <mat-card-subtitle
+        ><strong>Price:</strong> {{ shoes[i].price }}:-
+      </mat-card-subtitle>
     </div>
+  </div>
+  <div class="container">
+    <p class="total">Total: {{ totalPrice }}:-</p>
   </div>
 
   <button

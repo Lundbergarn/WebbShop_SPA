@@ -5,11 +5,12 @@
   justify-content: space-between;
   display: flex;
   margin-right: 50px;
+  flex-direction: column;
+  align-items: left;
 }
 
 .mat-card div {
   padding: 30px 0 10px 0;
-  /* line-height: 4rem; */
   border-top: 1px solid #ddd;
 }
 
@@ -19,18 +20,15 @@
 
 .mat-card div picture {
   width: 200px;
+  position: absolute;
+  margin-left: 10px;
+  right: 0;
+  margin-right: 100px;
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 1000px) {
-  .mat-card div {
-    flex-direction: column;
-    align-items: left;
-  }
   .mat-card div picture {
-    position: absolute;
-    margin-left: 10px;
-    right: 0;
-    margin-right: 90px;
     width: 150px;
   }
 }
@@ -39,5 +37,6 @@
   .mat-card div picture {
     position: relative;
     padding-top: 20px;
+    margin-top: 0;
   }
 }

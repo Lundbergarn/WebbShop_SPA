@@ -12,12 +12,12 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #f4f4f4;
+  font-size: 16px;
 }
 
-.btn-primary,
-.btn-success {
-  /* background-color: #cec001;
-  border-color: #cec001; */
+.mat-card-content,
+.mat-card-subtitle {
+  font-size: 16px;
 }
 
 .btn-default {
@@ -28,4 +28,24 @@ body {
 
 .btn {
   margin-bottom: 20px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

@@ -1,10 +1,13 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { OrderService } from "../order.service";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { Subscription } from "rxjs";
+
+import { OrderService } from "../order.service";
 import { orderRows } from "../_models/orderRows";
 import { AlertifyService } from "../_services/alertify.service";
 import { CustomerService } from "../customer.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
+import { Shoe } from "../_models/shoe";
+import { ProductService } from "../product.service";
 
 @Component({
   selector: "app-checkout",
@@ -17,13 +20,16 @@ export class CheckoutComponent implements OnInit {
   checkout: boolean = false;
   customer: string = "";
 
+  shoes: Shoe[] = [];
   model: any = {};
   customerData: any = {};
+  totalPrice: number = 0;
 
   constructor(
     private orderService: OrderService,
     private alertify: AlertifyService,
     private customerService: CustomerService,
+    private productService: ProductService,
     private router: Router
   ) {}
 
@@ -37,6 +43,13 @@ export class CheckoutComponent implements OnInit {
       this.model.Address = el.address;
 
       this.customerData = el;
+    });
+
+    this.orderRows.forEach((el, index) => {
+      this.productService.getShoe(el.shoeId).subscribe(shoe => {
+        this.shoes.push(shoe);
+        this.totalPrice += this.orderRows[index].qty * shoe.price;
+      });
     });
   }
 
