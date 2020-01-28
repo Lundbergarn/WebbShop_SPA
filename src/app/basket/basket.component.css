@@ -12,6 +12,7 @@
 }
 .container div .mat-card-subtitle {
   width: 100%;
+  margin-bottom: 12px;
 }
 
 .container div picture img {

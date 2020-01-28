@@ -10,6 +10,7 @@ import { orderRows } from "./_models/orderRows";
 @Injectable()
 export class OrderService {
   Url: string = "http://localhost:5000/api/";
+
   verifiedCustomer = new Subject<boolean>();
   isCustomerLoggedIn: boolean = false;
 
@@ -28,16 +29,29 @@ export class OrderService {
   }
 
   getBasketOrders() {
+    let basket = JSON.parse(localStorage.getItem("basket"));
+    return this.basketProducts.slice();
+    if (basket === null) {
+      this.basketProducts = [];
+      return this.basketProducts.slice();
+    }
+
+    this.basketProducts = basket;
     return this.basketProducts.slice();
   }
 
   emptyBasketOrders() {
     this.basketProducts = [];
+    localStorage.removeItem("basket");
   }
 
   // Add to local basket
   addProduct(orderRow: orderRows) {
-    this.basketProducts.push(orderRow);
+    let basket = JSON.parse(localStorage.getItem("basket")) || [];
+    basket.push(orderRow);
+    localStorage.setItem("basket", JSON.stringify(basket));
+
+    // this.basketProducts.push(orderRow);
     this.basketChanged.next(this.basketProducts.slice());
   }
 
@@ -65,10 +79,14 @@ export class OrderService {
 
   // Update quantity
   updateQuantity(id: number, value: number) {
-    this.basketProducts[id].qty = value;
+    let basket = JSON.parse(localStorage.getItem("basket"));
+    basket[id].qty = value;
+    localStorage.setItem("basket", JSON.stringify(basket));
+
+    // this.basketProducts[id].qty = value;
     this.basketChanged.next(this.basketProducts.slice());
   }
-  // Skicka en row i taget
+  // Skicka one row at a time
   sendCustomerOrder(order) {
     return this.http
       .post(this.Url + "customer", order, {

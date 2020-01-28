@@ -1,8 +1,12 @@
 <h1 class="mt-5" style="text-align: center;">Basket</h1>
 
 <div class="container">
-  <div *ngFor="let row of orderRows; let i = index" class="mb-3">
-    <div>
+  <div
+    *ngFor="let row of orderRows; let i = index"
+    class="mb-3"
+    style="flex-direction: row;"
+  >
+    <div style="flex-direction: column; display: flex;">
       <mat-card-subtitle
         ><strong>Product {{ i + 1 }}: </strong>
       </mat-card-subtitle>
