@@ -11,6 +11,13 @@
   top: 200px;
 }
 
+.fas {
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif !important;
+  font-weight: normal;
+  font-style: normal;
+}
+
 @media screen and (max-width: 990px) {
   input {
     margin-top: 5px;

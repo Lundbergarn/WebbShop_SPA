@@ -6,6 +6,8 @@ import { CustomerService } from "../customer.service";
 import { Subscription } from "rxjs";
 import { Router, ActivatedRoute } from "@angular/router";
 
+import { orderRows } from "../_models/orderRows";
+
 @Component({
   selector: "app-nav",
   templateUrl: "./nav.component.html",
@@ -13,10 +15,13 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class NavComponent implements OnInit, OnDestroy {
   subscription: Subscription;
+  subscriptionBasket: Subscription;
   model: any = {};
   id: any;
   user: string = "";
   isLoading: boolean = false;
+
+  basketCount: number = 0;
 
   constructor(
     private authService: AuthService,
@@ -36,6 +41,15 @@ export class NavComponent implements OnInit, OnDestroy {
           this.customerService.setUserName(customer.userName);
         });
     }
+
+    // Get basket count
+    this.basketCount = this.orderService.getBasketOrders().length || 0;
+    this.subscriptionBasket = this.orderService.basketChanged.subscribe(
+      (orderRows: orderRows[]) => {
+        console.log(orderRows);
+        this.basketCount = orderRows.length;
+      }
+    );
   }
 
   login() {
@@ -74,5 +88,6 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.subscriptionBasket.unsubscribe();
   }
 }

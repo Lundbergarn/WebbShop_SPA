@@ -30,7 +30,6 @@ export class OrderService {
 
   getBasketOrders() {
     let basket = JSON.parse(localStorage.getItem("basket"));
-    return this.basketProducts.slice();
     if (basket === null) {
       this.basketProducts = [];
       return this.basketProducts.slice();
@@ -43,6 +42,7 @@ export class OrderService {
   emptyBasketOrders() {
     this.basketProducts = [];
     localStorage.removeItem("basket");
+    this.basketChanged.next(this.basketProducts.slice());
   }
 
   // Add to local basket
@@ -51,7 +51,7 @@ export class OrderService {
     basket.push(orderRow);
     localStorage.setItem("basket", JSON.stringify(basket));
 
-    // this.basketProducts.push(orderRow);
+    this.basketProducts.push(orderRow);
     this.basketChanged.next(this.basketProducts.slice());
   }
 
