@@ -10,16 +10,27 @@ import { OrderService } from "./order.service";
 })
 export class CustomerService {
   Url: string = "http://localhost:5000/api/";
-  userName: string = "Unknown";
+  userName = new Subject<string>();
 
   constructor(private http: HttpClient, private orderService: OrderService) {}
 
   setUserName(name: string) {
-    this.userName = name;
+    this.userName.next(name);
   }
 
-  getUserName(): string {
+  getUserName() {
     return this.userName;
+  }
+
+  removeCustomer() {
+    return this.http
+      .delete(this.Url + "customer", {
+        headers: new HttpHeaders().set(
+          "Authorization",
+          "Bearer " + localStorage.getItem("token")
+        )
+      })
+      .pipe(catchError(this.handleError("sendRemoveCustomer")));
   }
 
   sendCustomerData(customerData) {

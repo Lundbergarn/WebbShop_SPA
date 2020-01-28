@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 
 import { OrderService } from "../order.service";
@@ -18,7 +18,6 @@ export class CheckoutComponent implements OnInit {
   orderRows: orderRows[];
   subscription: Subscription;
   checkout: boolean = false;
-  customer: string = "";
 
   shoes: Shoe[] = [];
   model: any = {};
@@ -54,13 +53,12 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitOrder() {
-    this.customer = this.customerService.getUserName();
-
-    if (this.customer === "") {
+    if (!localStorage.getItem("token")) {
       this.alertify.warning("You need to log in first");
       return;
     }
 
+    this.router.navigate(["orders"]);
     // Check if no user changes
     if (
       this.customerData.firstName !== this.model.FirstName ||
@@ -82,8 +80,6 @@ export class CheckoutComponent implements OnInit {
       this.orderService.emptyBasketOrders();
       this.checkout = false;
       this.orderRows = [];
-
-      this.router.navigate(["orders"]);
     });
   }
 }

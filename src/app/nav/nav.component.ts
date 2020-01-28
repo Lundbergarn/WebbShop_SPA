@@ -16,6 +16,7 @@ import { orderRows } from "../_models/orderRows";
 export class NavComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionBasket: Subscription;
+  subscriptionCustomerName: Subscription;
   model: any = {};
   id: any;
   user: string = "";
@@ -42,11 +43,14 @@ export class NavComponent implements OnInit, OnDestroy {
         });
     }
 
+    this.customerService.getUserName().subscribe(name => {
+      this.user = name;
+    });
+
     // Get basket count
     this.basketCount = this.orderService.getBasketOrders().length || 0;
     this.subscriptionBasket = this.orderService.basketChanged.subscribe(
       (orderRows: orderRows[]) => {
-        console.log(orderRows);
         this.basketCount = orderRows.length;
       }
     );
@@ -82,12 +86,24 @@ export class NavComponent implements OnInit, OnDestroy {
 
   logout() {
     localStorage.removeItem("token");
-    this.alertify.message("logged out");
+    this.alertify.message("Logged out");
     this.user = "";
+  }
+
+  removeCustomer() {
+    this.customerService.removeCustomer().subscribe(() => {
+      this.alertify.message("Account removed");
+      this.logout();
+
+      this.router.navigate(["/"]);
+      localStorage.removeItem("basket");
+      this.orderService.emptyBasketOrders();
+    });
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscriptionBasket.unsubscribe();
+    this.subscriptionCustomerName.unsubscribe();
   }
 }
