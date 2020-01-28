@@ -5,9 +5,6 @@ import { Subscription } from "rxjs";
 import { OrderService } from "../order.service";
 import { orderRows } from "../_models/orderRows";
 import { ProductService } from "../product.service";
-import { Shoe } from "../_models/shoe";
-import { Size } from "../_models/size";
-import { Color } from "../_models/color";
 
 @Component({
   selector: "app-basket",
@@ -22,9 +19,7 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   quantitys: number[] = [];
 
-  shoes: Shoe[] = [];
-  colors: Color[] = [];
-  sizes: Size[] = [];
+  basketData = [];
 
   constructor(
     private orderService: OrderService,
@@ -34,26 +29,26 @@ export class BasketComponent implements OnInit, OnDestroy {
   ) {}
 
   // To not get undefined from shoe URL in HTML loop
-  shoeData(i: number, type: string) {
-    if (
-      this.shoes[i] == undefined ||
-      this.colors[i] == undefined ||
-      this.sizes[i] == undefined
-    ) {
-      return null;
-    }
-    if (type == "shoe") {
-      return this.shoes[i].imageUrl;
-    } else if (type == "price") {
-      return this.shoes[i].price;
-    } else if (type == "color") {
-      return this.colors[i].colorDescription;
-    } else if (type == "size") {
-      return this.sizes[i].sizeDescription;
-    } else {
-      return this.shoes[i].name;
-    }
-  }
+  // shoeData(i: number, type: string) {
+  //   if (
+  //     this.shoes[i] == undefined ||
+  //     this.colors[i] == undefined ||
+  //     this.sizes[i] == undefined
+  //   ) {
+  //     return null;
+  //   }
+  //   if (type == "shoe") {
+  //     return this.shoes[i].imageUrl;
+  //   } else if (type == "price") {
+  //     return this.shoes[i].price;
+  //   } else if (type == "color") {
+  //     return this.colors[i].colorDescription;
+  //   } else if (type == "size") {
+  //     return this.sizes[i].sizeDescription;
+  //   } else {
+  //     return this.shoes[i].name;
+  //   }
+  // }
 
   ngOnInit() {
     this.subscription = this.orderService.basketChanged.subscribe(
@@ -64,17 +59,29 @@ export class BasketComponent implements OnInit, OnDestroy {
     this.getBasketOrders();
 
     this.orderRows.forEach(el => {
+      let data = {
+        qty: null,
+        size: null,
+        color: null,
+        shoe: null
+      };
+
       // Subscribe one shoe at a time
-      this.productService.getShoe(el.shoeId).subscribe(shoes => {
-        this.quantitys.push(el.qty);
+      this.productService.getShoe(el.shoeId).subscribe(shoe => {
+        data.qty = el.qty;
+
         this.productService
           .getSize(el.sizeId)
-          .subscribe(size => this.sizes.push(size));
+          .subscribe(size => (data.size = size));
+
         this.productService
           .getColor(el.colorId)
-          .subscribe(color => this.colors.push(color));
-        this.shoes.push(shoes);
+          .subscribe(color => (data.color = color));
+
+        data.shoe = shoe;
       });
+
+      this.basketData.push(data);
     });
 
     // Check if logged in on enter
@@ -101,5 +108,11 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   handleRoute() {
     this.router.navigate(["checkout"], { relativeTo: this.route });
+  }
+
+  removeProduct(id: number) {
+    this.orderService.removeProduct(id);
+
+    this.basketData.splice(id, 1);
   }
 }

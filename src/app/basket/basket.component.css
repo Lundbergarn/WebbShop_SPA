@@ -6,6 +6,7 @@
   border-radius: 4px;
   padding: 30px;
   background-color: #fff;
+  position: relative;
 }
 .container {
   padding-bottom: 100px;
@@ -17,7 +18,21 @@
 
 .container div picture img {
   max-width: 250px;
-  margin: 5px 40px;
+  margin: 50px 40px;
+}
+
+/* // ICON */
+.fa {
+  font-size: 28px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  transition: ease-in 0.15s;
+}
+.fa:hover {
+  transform: scale(1.2);
+  color: red;
 }
 
 @media screen and (max-width: 990px) {
@@ -53,4 +68,9 @@ input[type="number"] {
 
 .quantity input:focus {
   outline: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
 }

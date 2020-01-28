@@ -42,17 +42,25 @@ export class OrderService {
   emptyBasketOrders() {
     this.basketProducts = [];
     localStorage.removeItem("basket");
-    this.basketChanged.next(this.basketProducts.slice());
+    this.basketChanged.next([]);
   }
 
   // Add to local basket
   addProduct(orderRow: orderRows) {
-    let basket = JSON.parse(localStorage.getItem("basket")) || [];
-    basket.push(orderRow);
-    localStorage.setItem("basket", JSON.stringify(basket));
-
     this.basketProducts.push(orderRow);
+
+    localStorage.setItem("basket", JSON.stringify(this.basketProducts));
+
     this.basketChanged.next(this.basketProducts.slice());
+  }
+
+  // Remove product from basket
+  removeProduct(index: number) {
+    this.basketProducts.splice(index, 1);
+
+    localStorage.setItem("basket", JSON.stringify(this.basketProducts));
+
+    this.basketChanged.next(this.basketProducts);
   }
 
   getOrders(): Observable<Order[]> {

@@ -2,7 +2,7 @@
 
 <div class="container">
   <div
-    *ngFor="let row of orderRows; let i = index"
+    *ngFor="let row of basketData; let i = index"
     class="mb-3"
     style="flex-direction: row;"
   >
@@ -12,7 +12,19 @@
       </mat-card-subtitle>
 
       <mat-card-subtitle
-        ><strong>Shoe:</strong> {{ shoeData(i, "name") }}</mat-card-subtitle
+        ><strong>Shoe:</strong> {{ row.shoe?.name }}</mat-card-subtitle
+      >
+
+      <mat-card-subtitle
+        ><strong>Size:</strong>
+        {{ row.size?.sizeDescription }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        ><strong>Color:</strong>
+        {{ row.color?.colorDescription }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        ><strong>Price:</strong> {{ row.shoe?.price }}:-</mat-card-subtitle
       >
 
       <mat-card-subtitle class="quantity"
@@ -25,21 +37,13 @@
           [(ngModel)]="quantitys[i]"
           [value]="row.qty"
       /></mat-card-subtitle>
-
-      <mat-card-subtitle
-        ><strong>Size:</strong> {{ shoeData(i, "size") }}</mat-card-subtitle
-      >
-      <mat-card-subtitle
-        ><strong>Color:</strong> {{ shoeData(i, "color") }}</mat-card-subtitle
-      >
-      <mat-card-subtitle
-        ><strong>Price:</strong> {{ shoeData(i, "price") }}:-</mat-card-subtitle
-      >
     </div>
     <picture>
-      <source media="(min-width:0px)" [srcset]="shoeData(i, 'shoe')" />
+      <source media="(min-width:0px)" [srcset]="row.shoe?.imageUrl" />
       <img mat-card-image src="" alt="Photo of a Shiba Inu" />
     </picture>
+
+    <i class="fa fa-remove" (click)="removeProduct(i)"></i>
   </div>
 
   <p *ngIf="orderRows.length === 0" style="text-align: center;">
