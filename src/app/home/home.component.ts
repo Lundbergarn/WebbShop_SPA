@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ProductService } from "../product.service";
+import { ProductService } from "../_services/product.service";
 
 @Component({
   selector: "app-home",

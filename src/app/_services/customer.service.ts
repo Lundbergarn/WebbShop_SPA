@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Subject, Observable, of, throwError, Subscription } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { tap, catchError } from "rxjs/operators";
-import { Customer } from "./_models/customer";
 import { OrderService } from "./order.service";
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Params, ActivatedRoute } from "@angular/router";
-import { ProductService } from "../product.service";
-import { OrderService } from "../order.service";
+import { ProductService } from "../_services/product.service";
+import { OrderService } from "../_services/order.service";
 import { orderRows } from "../_models/orderRows";
 import { AlertifyService } from "../_services/alertify.service";
 import { Shoe } from "../_models/shoe";

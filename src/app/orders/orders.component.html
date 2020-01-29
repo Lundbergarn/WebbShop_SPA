@@ -5,6 +5,8 @@
 </h3>
 
 <div class="container">
+  <mat-spinner *ngIf="isLoading" style="margin: 0 auto;"></mat-spinner>
+
   <mat-card *ngFor="let order of orders; let i = index" class="mb-3">
     <mat-card-title class="mb-3"
       ><strong>Order:</strong> {{ i + 1 }}</mat-card-title

@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
-import { Shoe } from "./_models/shoe";
-import { Size } from "./_models/size";
+import { Shoe } from "../_models/shoe";
+import { Size } from "../_models/size";
 import { catchError } from "rxjs/operators";
-import { AlertifyService } from "./_services/alertify.service";
-import { Color } from "./_models/color";
+import { AlertifyService } from "./alertify.service";
+import { Color } from "../_models/color";
 
 @Injectable()
 export class ProductService {

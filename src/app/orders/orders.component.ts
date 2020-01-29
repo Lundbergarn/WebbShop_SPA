@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { OrderService } from "../order.service";
+import { OrderService } from "../_services/order.service";
 import { Order } from "../_models/order";
 import { Subscription } from "rxjs";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class OrdersComponent implements OnInit, OnDestroy {
   orders: Order[];
-
+  isLoading: boolean = false;
   subscription: Subscription;
   customer: boolean = false;
   customerId: number;
@@ -30,9 +30,12 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   getCustomerOrders(): void {
-    this.orderService
-      .getCustomer()
-      .subscribe(customer => (this.orders = customer.order));
+    this.isLoading = true;
+
+    this.orderService.getCustomer().subscribe(customer => {
+      this.orders = customer.order;
+      this.isLoading = false;
+    });
   }
 
   ngOnDestroy() {

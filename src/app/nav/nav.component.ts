@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AuthService } from "../_services/auth.service";
 import { AlertifyService } from "../_services/alertify.service";
-import { OrderService } from "../order.service";
-import { CustomerService } from "../customer.service";
+import { OrderService } from "../_services/order.service";
+import { CustomerService } from "../_services/customer.service";
 import { Subscription } from "rxjs";
 import { Router, ActivatedRoute } from "@angular/router";
 

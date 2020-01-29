@@ -3,9 +3,9 @@ import { Subject, Observable, of, throwError, Subscription } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { tap, catchError, map } from "rxjs/operators";
-import { Order } from "./_models/order";
-import { Customer } from "./_models/customer";
-import { orderRows } from "./_models/orderRows";
+import { Order } from "../_models/order";
+import { Customer } from "../_models/customer";
+import { orderRows } from "../_models/orderRows";
 
 @Injectable()
 export class OrderService {

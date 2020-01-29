@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Subscription } from "rxjs";
 
-import { OrderService } from "../order.service";
+import { OrderService } from "../_services/order.service";
 import { orderRows } from "../_models/orderRows";
-import { ProductService } from "../product.service";
+import { ProductService } from "../_services/product.service";
 
 @Component({
   selector: "app-basket",
@@ -16,9 +16,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   checkout: boolean = false;
   verified: boolean = false;
-
   quantitys: number[] = [];
-
   basketData = [];
 
   constructor(
@@ -27,28 +25,6 @@ export class BasketComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute
   ) {}
-
-  // To not get undefined from shoe URL in HTML loop
-  // shoeData(i: number, type: string) {
-  //   if (
-  //     this.shoes[i] == undefined ||
-  //     this.colors[i] == undefined ||
-  //     this.sizes[i] == undefined
-  //   ) {
-  //     return null;
-  //   }
-  //   if (type == "shoe") {
-  //     return this.shoes[i].imageUrl;
-  //   } else if (type == "price") {
-  //     return this.shoes[i].price;
-  //   } else if (type == "color") {
-  //     return this.colors[i].colorDescription;
-  //   } else if (type == "size") {
-  //     return this.sizes[i].sizeDescription;
-  //   } else {
-  //     return this.shoes[i].name;
-  //   }
-  // }
 
   ngOnInit() {
     this.subscription = this.orderService.basketChanged.subscribe(
@@ -66,7 +42,7 @@ export class BasketComponent implements OnInit, OnDestroy {
         shoe: null
       };
 
-      // Subscribe one shoe at a time
+      // Get shoe, size and color for every product
       this.productService.getShoe(el.shoeId).subscribe(shoe => {
         data.qty = el.qty;
 

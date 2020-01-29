@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 
-import { OrderService } from "../order.service";
+import { OrderService } from "../_services/order.service";
 import { orderRows } from "../_models/orderRows";
 import { AlertifyService } from "../_services/alertify.service";
-import { CustomerService } from "../customer.service";
+import { CustomerService } from "../_services/customer.service";
 import { Router } from "@angular/router";
 import { Shoe } from "../_models/shoe";
-import { ProductService } from "../product.service";
+import { ProductService } from "../_services/product.service";
 
 @Component({
   selector: "app-checkout",
@@ -81,5 +81,9 @@ export class CheckoutComponent implements OnInit {
       this.checkout = false;
       this.orderRows = [];
     });
+  }
+
+  handleRoute() {
+    this.router.navigate(["basket"]);
   }
 }

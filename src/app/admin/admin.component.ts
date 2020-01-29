@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { OrderService } from "../order.service";
+import { OrderService } from "../_services/order.service";
 import { Order } from "../_models/order";
 import { Subscription } from "rxjs";
 import { AuthService } from "../_services/auth.service";
