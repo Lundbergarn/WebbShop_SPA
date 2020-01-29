@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
+import { SubSink } from "subsink";
+
 import { OrderService } from "../_services/order.service";
 import { Order } from "../_models/order";
-import { Subscription } from "rxjs";
 import { AuthService } from "../_services/auth.service";
 import { AlertifyService } from "../_services/alertify.service";
 
@@ -11,8 +12,8 @@ import { AlertifyService } from "../_services/alertify.service";
   styleUrls: ["./admin.component.css"]
 })
 export class AdminComponent implements OnInit, OnDestroy {
+  subs = new SubSink();
   orders: Order[];
-  subscription: Subscription;
   admin: boolean = false;
   model: any = {};
   id: any;
@@ -24,19 +25,12 @@ export class AdminComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.subscription = this.orderService.verifiedAdmin.subscribe(el => {
-    //   this.getOrders();
-    //   this.admin = true;
-    // });
-
-    this.getOrders();
-  }
-
-  getOrders(): void {
-    this.orderService.getOrders().subscribe(orders => (this.orders = orders));
+    this.subs.add(
+      this.orderService.getOrders().subscribe(orders => (this.orders = orders))
+    );
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subs.unsubscribe();
   }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { SubSink } from "subsink";
 
 import { Shoe } from "../_models/shoe";
 import { ProductService } from "../_services/product.service";
@@ -8,21 +9,25 @@ import { ProductService } from "../_services/product.service";
   templateUrl: "./product_list.component.html",
   styleUrls: ["./product_list.component.css"]
 })
-export class Product_listComponent implements OnInit {
+export class Product_listComponent implements OnInit, OnDestroy {
+  subs = new SubSink();
   shoes: Shoe[];
   isLoading: boolean;
 
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.getShoes();
+    this.isLoading = true;
+
+    this.subs.add(
+      this.productService.getShoes().subscribe(shoes => {
+        this.shoes = shoes;
+        this.isLoading = false;
+      })
+    );
   }
 
-  getShoes(): void {
-    this.isLoading = true;
-    this.productService.getShoes().subscribe(res => {
-      this.shoes = res;
-      this.isLoading = false;
-    });
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }

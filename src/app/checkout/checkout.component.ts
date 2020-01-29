@@ -1,22 +1,22 @@
-import { Component, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { SubSink } from "subsink";
 
 import { OrderService } from "../_services/order.service";
-import { orderRows } from "../_models/orderRows";
-import { AlertifyService } from "../_services/alertify.service";
+import { ProductService } from "../_services/product.service";
 import { CustomerService } from "../_services/customer.service";
+import { AlertifyService } from "../_services/alertify.service";
+import { orderRows } from "../_models/orderRows";
 import { Router } from "@angular/router";
 import { Shoe } from "../_models/shoe";
-import { ProductService } from "../_services/product.service";
 
 @Component({
   selector: "app-checkout",
   templateUrl: "./checkout.component.html",
   styleUrls: ["./checkout.component.css"]
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
+  subs = new SubSink();
   orderRows: orderRows[];
-  subscription: Subscription;
   checkout: boolean = false;
 
   shoes: Shoe[] = [];
@@ -35,20 +35,24 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.orderRows = this.orderService.getBasketOrders();
 
-    this.orderService.getCustomer().subscribe(el => {
-      this.model.FirstName = el.firstName;
-      this.model.LastName = el.lastName;
-      this.model.Phone = el.phone;
-      this.model.Address = el.address;
+    this.subs.add(
+      this.orderService.getCustomer().subscribe(el => {
+        this.model.FirstName = el.firstName;
+        this.model.LastName = el.lastName;
+        this.model.Phone = el.phone;
+        this.model.Address = el.address;
 
-      this.customerData = el;
-    });
+        this.customerData = el;
+      })
+    );
 
     this.orderRows.forEach((el, index) => {
-      this.productService.getShoe(el.shoeId).subscribe(shoe => {
-        this.shoes.push(shoe);
-        this.totalPrice += this.orderRows[index].qty * shoe.price;
-      });
+      this.subs.add(
+        this.productService.getShoe(el.shoeId).subscribe(shoe => {
+          this.shoes.push(shoe);
+          this.totalPrice += this.orderRows[index].qty * shoe.price;
+        })
+      );
     });
   }
 
@@ -66,24 +70,32 @@ export class CheckoutComponent implements OnInit {
       this.customerData.phone !== this.model.Phone ||
       this.customerData.address !== this.model.Address
     ) {
-      this.customerService.sendCustomerData(this.model).subscribe(() => {
-        this.alertify.success("Userdata updated");
-      });
+      this.subs.add(
+        this.customerService.sendCustomerData(this.model).subscribe(() => {
+          this.alertify.success("Userdata updated");
+        })
+      );
     }
 
     var orderToSend = {
       orderRows: this.orderRows
     };
 
-    this.orderService.sendCustomerOrder(orderToSend).subscribe(() => {
-      this.alertify.success(`Your order is sent!`);
-      this.orderService.emptyBasketOrders();
-      this.checkout = false;
-      this.orderRows = [];
-    });
+    this.subs.add(
+      this.orderService.sendCustomerOrder(orderToSend).subscribe(() => {
+        this.alertify.success(`Your order is sent!`);
+        this.orderService.emptyBasketOrders();
+        this.checkout = false;
+        this.orderRows = [];
+      })
+    );
   }
 
   handleRoute() {
     this.router.navigate(["basket"]);
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }

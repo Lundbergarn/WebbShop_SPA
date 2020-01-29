@@ -1,9 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Params, ActivatedRoute } from "@angular/router";
+import { SubSink } from "subsink";
+
+import { AlertifyService } from "../_services/alertify.service";
 import { ProductService } from "../_services/product.service";
 import { OrderService } from "../_services/order.service";
 import { orderRows } from "../_models/orderRows";
-import { AlertifyService } from "../_services/alertify.service";
 import { Shoe } from "../_models/shoe";
 import { Size } from "../_models/size";
 import { Color } from "../_models/color";
@@ -13,7 +15,8 @@ import { Color } from "../_models/color";
   templateUrl: "./product_detail.component.html",
   styleUrls: ["./product_detail.component.css"]
 })
-export class Product_detailComponent implements OnInit {
+export class Product_detailComponent implements OnInit, OnDestroy {
+  subs = new SubSink();
   isLoading: boolean = false;
   sizes: Size[];
   colors: Color[];
@@ -48,36 +51,44 @@ export class Product_detailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      this.getShoe(params["id"]);
-      this.getSizes();
-      this.getColors();
-    });
+    this.subs.add(
+      this.route.params.subscribe((params: Params) => {
+        this.getShoe(params["id"]);
+        this.getSizes();
+        this.getColors();
+      })
+    );
   }
 
   getShoe(id: number): void {
     this.isLoading = true;
-    this.productService.getShoe(id).subscribe(shoe => {
-      this.shoe = shoe;
-      this.isLoading = false;
-    });
+    this.subs.add(
+      this.productService.getShoe(id).subscribe(shoe => {
+        this.shoe = shoe;
+        this.isLoading = false;
+      })
+    );
   }
 
   getSizes(): void {
-    this.productService.getSizes().subscribe(res => {
-      this.sizes = res;
-    });
+    this.subs.add(
+      this.productService.getSizes().subscribe(res => {
+        this.sizes = res;
+      })
+    );
   }
 
   getColors(): void {
-    this.productService.getColors().subscribe(res => {
-      this.colors = res;
-    });
+    this.subs.add(
+      this.productService.getColors().subscribe(res => {
+        this.colors = res;
+      })
+    );
   }
 
   addToCard() {
     this.orderRow.shoeId = this.shoe.id; // Shoe ID
-    this.orderRow.qty = 1;
+    this.orderRow.qty = 1; // Quantity
     this.orderRow.orderId = 1; // Customer ID
     this.orderRow.sizeId = this.size.id; // Size ID
     this.orderRow.colorId = this.color.id; // Color ID
@@ -94,5 +105,9 @@ export class Product_detailComponent implements OnInit {
       color: null,
       shoe: null
     };
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }
