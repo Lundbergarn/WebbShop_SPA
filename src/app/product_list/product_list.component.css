@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 40px 0;
+  margin: 40px 10%;
   justify-content: space-around;
 }
 .product_item {
-  max-width: 500px;
+  max-width: 366px;
+  margin: 0 5px;
 }
 
 @media screen and (max-width: 768px) {

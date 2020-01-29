@@ -32,7 +32,7 @@ export class NavComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (localStorage.getItem("token")) {
       this.subs.add(
-        this.orderService.getCustomer().subscribe(customer => {
+        this.customerService.getCustomer().subscribe(customer => {
           this.user = customer.userName || null;
           this.customerService.setUserName(customer.userName);
         })
@@ -59,15 +59,12 @@ export class NavComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.authService.login(this.model, "customer/auth").subscribe(
         () => {
-          this.alertify.success("logged in successfully");
-
           this.orderService.loggedIn();
-
           this.customerService.setUserName(this.model.username);
-
           this.user = this.model.username;
           this.isLoading = false;
 
+          this.alertify.success("Logged in successfully");
           this.router.navigate(["products"]);
         },
         error => {
@@ -92,13 +89,18 @@ export class NavComponent implements OnInit, OnDestroy {
 
   removeCustomer() {
     this.subs.add(
-      this.customerService.removeCustomer().subscribe(() => {
-        this.alertify.message("Account removed");
-        this.logout();
-        this.router.navigate(["/"]);
-        localStorage.removeItem("basket");
-        this.orderService.emptyBasketOrders();
-      })
+      this.customerService.removeCustomer().subscribe(
+        () => {
+          this.alertify.message("Account removed");
+          this.logout();
+          this.router.navigate(["/"]);
+          localStorage.removeItem("basket");
+          this.orderService.emptyBasketOrders();
+        },
+        error => {
+          this.alertify.error(error);
+        }
+      )
     );
   }
 

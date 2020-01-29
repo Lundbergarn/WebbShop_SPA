@@ -3,12 +3,14 @@ import { Subject, Observable, of, throwError, Subscription } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { tap, catchError } from "rxjs/operators";
 import { OrderService } from "./order.service";
+import { environment } from "src/environments/environment";
+import { Customer } from "../_models/customer";
 
 @Injectable({
   providedIn: "root"
 })
 export class CustomerService {
-  Url: string = "http://localhost:5000/api/";
+  baseUrl = environment.apiUrl;
   userName = new Subject<string>();
 
   constructor(private http: HttpClient, private orderService: OrderService) {}
@@ -21,9 +23,20 @@ export class CustomerService {
     return this.userName;
   }
 
-  removeCustomer() {
+  getCustomer(): Observable<Customer> {
     return this.http
-      .delete(this.Url + "customer", {
+      .get<Customer>(this.baseUrl + "customer", {
+        headers: new HttpHeaders().set(
+          "Authorization",
+          "Bearer " + localStorage.getItem("token")
+        )
+      })
+      .pipe(catchError(this.handleError<Customer>("getCustomer")));
+  }
+
+  removeCustomer(): Observable<Object> {
+    return this.http
+      .delete(this.baseUrl + "customer", {
         headers: new HttpHeaders().set(
           "Authorization",
           "Bearer " + localStorage.getItem("token")
@@ -32,9 +45,9 @@ export class CustomerService {
       .pipe(catchError(this.handleError("sendRemoveCustomer")));
   }
 
-  sendCustomerData(customerData) {
+  sendCustomerData(customerData: Customer): Observable<Object> {
     return this.http
-      .put(this.Url + "customer", customerData, {
+      .put(this.baseUrl + "customer", customerData, {
         headers: new HttpHeaders()
           .set("Authorization", "Bearer " + localStorage.getItem("token"))
           .set("Content-Type", "application/json")

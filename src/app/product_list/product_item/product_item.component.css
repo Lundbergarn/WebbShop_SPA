@@ -3,10 +3,10 @@ picture {
   margin-bottom: 10px;
 }
 .mat-card {
-  padding: 30px 60px;
+  padding: 30px 40px;
   margin: 15px 10px;
   min-width: 333px;
-  min-height: 350px;
+  min-height: 300px;
   background-color: #fff;
   cursor: pointer;
   transition: ease 0.3s;

@@ -1,15 +1,15 @@
 <div class="flex container">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <picture>
-    <source media="(min-width:0px)" [srcset]="shoe.imageUrl" />
+    <source media="(min-width:0px)" [srcset]="shoe?.imageUrl" />
     <img mat-card-image src="" alt="Photo of a Shiba Inu" />
   </picture>
   <div class="product_content">
     <h2>
-      <strong>{{ shoe.brand }}</strong>
+      <strong>{{ shoe?.brand }}</strong>
     </h2>
-    <h3>{{ shoe.name }}</h3>
-    <h3>{{ shoe.price }}:-</h3>
+    <h3>{{ shoe?.name }}</h3>
+    <h3>{{ shoe?.price }}:-</h3>
 
     <!-- // Form select  Size-->
     <div class="form-group" style="padding-top: 20px;">
@@ -49,6 +49,6 @@
 
   <div class="product_description">
     <p><strong>Beskrivning</strong></p>
-    <p>{{ shoe.productDescription }}</p>
+    <p>{{ shoe?.productDescription }}</p>
   </div>
 </div>

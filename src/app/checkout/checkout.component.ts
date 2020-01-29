@@ -8,6 +8,7 @@ import { AlertifyService } from "../_services/alertify.service";
 import { orderRows } from "../_models/orderRows";
 import { Router } from "@angular/router";
 import { Shoe } from "../_models/shoe";
+import { Customer } from "../_models/customer";
 
 @Component({
   selector: "app-checkout",
@@ -18,11 +19,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   subs = new SubSink();
   orderRows: orderRows[];
   checkout: boolean = false;
-
-  shoes: Shoe[] = [];
-  model: any = {};
   customerData: any = {};
   totalPrice: number = 0;
+  shoes: Shoe[] = [];
+  model: any = {};
 
   constructor(
     private orderService: OrderService,
@@ -36,22 +36,32 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.orderRows = this.orderService.getBasketOrders();
 
     this.subs.add(
-      this.orderService.getCustomer().subscribe(el => {
-        this.model.FirstName = el.firstName;
-        this.model.LastName = el.lastName;
-        this.model.Phone = el.phone;
-        this.model.Address = el.address;
+      this.customerService.getCustomer().subscribe(
+        (customer: Customer) => {
+          this.model.FirstName = customer.firstName;
+          this.model.LastName = customer.lastName;
+          this.model.Phone = customer.phone;
+          this.model.Address = customer.address;
 
-        this.customerData = el;
-      })
+          this.customerData = customer;
+        },
+        error => {
+          this.alertify.error(error);
+        }
+      )
     );
 
-    this.orderRows.forEach((el, index) => {
+    this.orderRows.forEach((orderRow, index) => {
       this.subs.add(
-        this.productService.getShoe(el.shoeId).subscribe(shoe => {
-          this.shoes.push(shoe);
-          this.totalPrice += this.orderRows[index].qty * shoe.price;
-        })
+        this.productService.getShoe(orderRow.shoeId).subscribe(
+          (shoe: Shoe) => {
+            this.shoes.push(shoe);
+            this.totalPrice += this.orderRows[index].qty * shoe.price;
+          },
+          error => {
+            this.alertify.error(error);
+          }
+        )
       );
     });
   }
@@ -62,7 +72,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.router.navigate(["orders"]);
     // Check if no user changes
     if (
       this.customerData.firstName !== this.model.FirstName ||
@@ -71,23 +80,34 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.customerData.address !== this.model.Address
     ) {
       this.subs.add(
-        this.customerService.sendCustomerData(this.model).subscribe(() => {
-          this.alertify.success("Userdata updated");
-        })
+        this.customerService.sendCustomerData(this.model).subscribe(
+          () => {
+            this.alertify.success("Userdata updated");
+          },
+          error => {
+            this.alertify.error(error);
+          }
+        )
       );
     }
 
-    var orderToSend = {
+    let orderToSend = {
       orderRows: this.orderRows
     };
 
     this.subs.add(
-      this.orderService.sendCustomerOrder(orderToSend).subscribe(() => {
-        this.alertify.success(`Your order is sent!`);
-        this.orderService.emptyBasketOrders();
-        this.checkout = false;
-        this.orderRows = [];
-      })
+      this.orderService.sendCustomerOrder(orderToSend).subscribe(
+        () => {
+          this.alertify.success(`Your order is sent!`);
+          this.orderService.emptyBasketOrders();
+          this.checkout = false;
+          this.orderRows = [];
+          this.router.navigate(["orders"]);
+        },
+        error => {
+          this.alertify.error(error);
+        }
+      )
     );
   }
 

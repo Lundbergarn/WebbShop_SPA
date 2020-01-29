@@ -8,7 +8,7 @@ import { Shoe } from "src/app/_models/shoe";
   templateUrl: "./product_item.component.html",
   styleUrls: ["./product_item.component.css"]
 })
-export class Product_itemComponent {
+export class ProductItemComponent {
   @Input() shoe: Shoe;
 
   constructor(private router: Router, private route: ActivatedRoute) {}

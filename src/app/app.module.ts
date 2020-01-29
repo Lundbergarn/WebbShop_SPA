@@ -23,11 +23,11 @@ import {
   MatSpinner
 } from "@angular/material/";
 
-import { Product_listComponent } from "./product_list/product_list.component";
-import { Product_detailComponent } from "./product_detail/product_detail.component";
+import { ProductListComponent } from "./product_list/product_list.component";
+import { ProductDetailComponent } from "./product_detail/product_detail.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { OrdersComponent } from "./orders/orders.component";
-import { Product_itemComponent } from "./product_list/product_item/product_item.component";
+import { ProductItemComponent } from "./product_list/product_item/product_item.component";
 import { AdminComponent } from "./admin/admin.component";
 import { ProductService } from "./_services/product.service";
 import { OrderService } from "./_services/order.service";
@@ -54,9 +54,9 @@ export function tokenGetter() {
     MatCardSubtitle,
     MatCardContent,
     MatSpinner,
-    Product_listComponent,
-    Product_itemComponent,
-    Product_detailComponent,
+    ProductListComponent,
+    ProductItemComponent,
+    ProductDetailComponent,
     OrdersComponent,
     AdminComponent,
     BasketComponent,
