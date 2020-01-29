@@ -6,6 +6,12 @@ import { OrderService } from "./order.service";
 import { environment } from "src/environments/environment";
 import { Customer } from "../_models/customer";
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    Authorization: "Bearer " + localStorage.getItem("token")
+  })
+};
+
 @Injectable({
   providedIn: "root"
 })
@@ -25,23 +31,13 @@ export class CustomerService {
 
   getCustomer(): Observable<Customer> {
     return this.http
-      .get<Customer>(this.baseUrl + "customer", {
-        headers: new HttpHeaders().set(
-          "Authorization",
-          "Bearer " + localStorage.getItem("token")
-        )
-      })
+      .get<Customer>(this.baseUrl + "customer", httpOptions)
       .pipe(catchError(this.handleError<Customer>("getCustomer")));
   }
 
   removeCustomer(): Observable<Object> {
     return this.http
-      .delete(this.baseUrl + "customer", {
-        headers: new HttpHeaders().set(
-          "Authorization",
-          "Bearer " + localStorage.getItem("token")
-        )
-      })
+      .delete(this.baseUrl + "customer", httpOptions)
       .pipe(catchError(this.handleError("sendRemoveCustomer")));
   }
 
@@ -52,10 +48,7 @@ export class CustomerService {
           .set("Authorization", "Bearer " + localStorage.getItem("token"))
           .set("Content-Type", "application/json")
       })
-      .pipe(
-        tap(customerData => console.log(`Sent order `, customerData)),
-        catchError(this.handleError("sendCustomerOrder"))
-      );
+      .pipe(catchError(this.handleError("sendCustomerOrder")));
   }
 
   private handleError<T>(operation = "operation", result?: T) {

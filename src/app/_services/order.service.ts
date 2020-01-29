@@ -1,12 +1,17 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable, of, throwError, Subscription } from "rxjs";
+import { Subject, Observable, of } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-
 import { tap, catchError, map } from "rxjs/operators";
-import { Order } from "../_models/order";
-import { Customer } from "../_models/customer";
-import { orderRows } from "../_models/orderRows";
+
 import { environment } from "src/environments/environment";
+import { orderRows } from "../_models/orderRows";
+import { Order } from "../_models/order";
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    Authorization: "Bearer " + localStorage.getItem("token")
+  })
+};
 
 @Injectable()
 export class OrderService {
@@ -49,30 +54,21 @@ export class OrderService {
   // Add to local basket
   addProduct(orderRow: orderRows) {
     this.basketProducts.push(orderRow);
-
-    localStorage.setItem("basket", JSON.stringify(this.basketProducts));
-
     this.basketChanged.next(this.basketProducts.slice());
+    localStorage.setItem("basket", JSON.stringify(this.basketProducts));
   }
 
   // Remove product from basket
   removeProduct(index: number) {
     this.basketProducts.splice(index, 1);
-
-    localStorage.setItem("basket", JSON.stringify(this.basketProducts));
-
     this.basketChanged.next(this.basketProducts);
+    localStorage.setItem("basket", JSON.stringify(this.basketProducts));
   }
 
   // Get all orders to customer
   getOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(this.baseUrl + "admin", {
-        headers: new HttpHeaders().set(
-          "Authorization",
-          "Bearer " + localStorage.getItem("token")
-        )
-      })
+      .get<Order[]>(this.baseUrl + "admin", httpOptions)
       .pipe(catchError(this.handleError<Order[]>("getOrders", [])));
   }
 
