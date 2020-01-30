@@ -7,21 +7,13 @@ import { environment } from "src/environments/environment";
 import { orderRows } from "../_models/orderRows";
 import { Order } from "../_models/order";
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    Authorization: "Bearer " + localStorage.getItem("token")
-  })
-};
-
 @Injectable()
 export class OrderService {
   baseUrl = environment.apiUrl;
-
-  verifiedCustomer = new Subject<boolean>();
-  isCustomerLoggedIn: boolean = false;
-
   private basketProducts: orderRows[] = [];
   basketChanged = new Subject<orderRows[]>();
+  verifiedCustomer = new Subject<boolean>();
+  isCustomerLoggedIn: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -68,7 +60,7 @@ export class OrderService {
   // Get all orders to customer
   getOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(this.baseUrl + "admin", httpOptions)
+      .get<Order[]>(this.baseUrl + "admin")
       .pipe(catchError(this.handleError<Order[]>("getOrders", [])));
   }
 
@@ -84,9 +76,7 @@ export class OrderService {
   sendCustomerOrder(order) {
     return this.http
       .post(this.baseUrl + "customer", order, {
-        headers: new HttpHeaders()
-          .set("Authorization", "Bearer " + localStorage.getItem("token"))
-          .set("Content-Type", "application/json")
+        headers: new HttpHeaders().set("Content-Type", "application/json")
       })
       .pipe(
         tap((order: Order) => console.log("Sent order ", order)),

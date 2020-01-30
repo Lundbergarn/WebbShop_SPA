@@ -3,7 +3,7 @@
   width: 600px;
 }
 .container {
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 }
 .mat-card-subtitle {
   margin-bottom: 0;
@@ -11,7 +11,7 @@
 .product_row {
   display: flex;
   justify-content: space-between;
-  width: 600px;
+  /* width: 600px; */
   margin: 10px auto;
   padding: 25px 20px;
   border-radius: 4px;
@@ -23,7 +23,7 @@
 .total {
   margin: 25px auto 0 auto;
   text-align: right;
-  width: 600px;
+  /* width: 600px; */
   font-size: 20px;
 }
 .mat-card-subtitle:not(:first-child) {

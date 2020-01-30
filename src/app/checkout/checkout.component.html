@@ -56,11 +56,12 @@
   </div>
 </form>
 
-<div class="container">
-  <p style="text-align: center; font-size: 20px; margin-top: 50px;">
+<div class="container" style="margin-bottom: 60px">
+  <p style="text-align: center; font-size: 24px; margin-top: 50px;">
     Products in basket: {{ orderRows.length }}
   </p>
-  <div *ngFor="let row of orderRows; let i = index">
+
+  <div *ngFor="let row of orderRows; let i = index; p">
     <div class="product_row mat-card">
       <mat-card-subtitle
         ><strong>Shoe:</strong> {{ shoes[i]?.name }}
@@ -75,9 +76,8 @@
       </mat-card-subtitle>
     </div>
   </div>
-  <div class="container">
-    <p class="total">Total: {{ totalPrice }}:-</p>
-  </div>
+
+  <p class="total mb-3">Total: {{ totalPrice }}:-</p>
 
   <button class="btn btn-info" style="width: 118px;" (click)="handleRoute()">
     Back

@@ -4,10 +4,10 @@
   Logg in to view all orders.
 </h3>
 
-<div class="container">
+<div class="container" *ngFor="let order of orders; let i = index; p">
   <mat-spinner *ngIf="isLoading" style="margin: 0 auto;"></mat-spinner>
 
-  <mat-card *ngFor="let order of orders; let i = index" class="mb-3">
+  <mat-card class="mb-3">
     <mat-card-title class="mb-3"
       ><strong>Order:</strong> {{ i + 1 }}</mat-card-title
     >
@@ -18,7 +18,8 @@
       ><strong>Order-date:</strong>
       {{ order.orderDate | date: "fullDate" }}</mat-card-subtitle
     >
-    <div *ngFor="let row of order.orderRows; let i = index" class="mb-3">
+
+    <div *ngFor="let row of order.orderRows; let i = index; p" class="mb-3">
       <mat-card-subtitle
         ><strong>Shoe {{ i + 1 }}: </strong>
         {{ row.shoe.name }}</mat-card-subtitle
@@ -36,7 +37,7 @@
       >
       <picture>
         <source media="(min-width:0px)" [srcset]="row.shoe.imageUrl" />
-        <img mat-card-image src="" alt="Photo of a Shiba Inu" />
+        <img mat-card-image src="" [alt]="row.shoe.name" />
       </picture>
     </div>
   </mat-card>

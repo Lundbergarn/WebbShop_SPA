@@ -1,15 +1,17 @@
-<mat-card (click)="handleRoute(shoe.id)">
+<div class="card mb-4" (click)="handleRoute(shoe.id)">
   <picture>
     <source media="(min-width:0px)" [srcset]="shoe.imageUrl" />
     <img mat-card-image src="" [alt]="shoe.name" />
   </picture>
-  <mat-card-title style="text-align: center;">
-    {{ shoe.brand }}
-  </mat-card-title>
-  <mat-card-title style="text-align: center; font-size: 18px;">
-    {{ shoe.name }}
-  </mat-card-title>
-  <mat-card-title style="text-align: center; "
-    >{{ shoe.price }}:-</mat-card-title
-  >
-</mat-card>
+  <div class="card-body p-3">
+    <mat-card-title style="text-align: center;">
+      {{ shoe.brand }}
+    </mat-card-title>
+    <mat-card-title style="text-align: center; font-size: 18px;">
+      {{ shoe.name }}
+    </mat-card-title>
+    <mat-card-title style="text-align: center; "
+      >{{ shoe.price }}:-</mat-card-title
+    >
+  </div>
+</div>

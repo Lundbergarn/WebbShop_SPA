@@ -1,10 +1,10 @@
 <h1 class="mt-5" style="text-align: center;">Products</h1>
 
-<div class="flex">
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <app-product_item
-    class="product_item"
-    *ngFor="let shoeEl of shoes"
-    [shoe]="shoeEl"
-  ></app-product_item>
+<div class="container" style="margin-bottom: 60px; margin-top: 60px;">
+  <div class="row">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <div *ngFor="let shoeEl of shoes" class="col-lg-4 col-md-6 col-sm-12">
+      <app-product_item class="product_item" [shoe]="shoeEl"></app-product_item>
+    </div>
+  </div>
 </div>
