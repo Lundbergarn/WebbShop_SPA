@@ -18,6 +18,21 @@
   font-style: normal;
 }
 
+.navbar {
+  padding: 0 1rem;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.35);
+}
+.navbar-nav {
+  align-items: baseline;
+  margin-left: 20px;
+}
+.navbar li {
+  padding: 10px 0;
+}
+.active {
+  background-color: #4d5055;
+}
+
 @media screen and (max-width: 990px) {
   input {
     margin-top: 5px;

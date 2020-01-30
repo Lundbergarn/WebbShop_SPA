@@ -84,7 +84,9 @@ export class NavComponent implements OnInit, OnDestroy {
   logout() {
     localStorage.removeItem("token");
     this.alertify.message("Logged out");
+    this.router.navigate(["home"]);
     this.user = "";
+    this.orderService.emptyBasketOrders();
   }
 
   removeCustomer() {

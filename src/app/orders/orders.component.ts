@@ -16,7 +16,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
   subs = new SubSink();
   orders: Order[];
   isLoading: boolean = false;
-  customer: boolean = false;
   customerId: number;
 
   constructor(
@@ -30,7 +29,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
       this.orderService.verifiedCustomer.subscribe(
         (loggedIn: boolean) => {
           this.loadCustomerOrders();
-          this.customer = true;
         },
         error => {
           this.alertify.error(error);
@@ -40,7 +38,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
     if (localStorage.getItem("token")) {
       this.loadCustomerOrders();
-      this.customer = true;
     }
   }
 

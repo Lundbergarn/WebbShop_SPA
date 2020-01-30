@@ -1,9 +1,5 @@
 <h1 class="mt-5" style="text-align: center;">Orders</h1>
 
-<h3 *ngIf="!customer" style="text-align: center;">
-  Logg in to view all orders.
-</h3>
-
 <div class="container" *ngFor="let order of orders; let i = index; p">
   <mat-spinner *ngIf="isLoading" style="margin: 0 auto;"></mat-spinner>
 

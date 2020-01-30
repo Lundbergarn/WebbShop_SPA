@@ -10,6 +10,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  loggedIn() {
+    if (localStorage.getItem("token")) {
+      return true;
+    }
+    return false;
+  }
+
   login(model: any, endpoint: string) {
     return this.http.post(this.baseUrl + endpoint + "/login", model).pipe(
       map((response: any) => {
