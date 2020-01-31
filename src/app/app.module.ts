@@ -10,7 +10,6 @@ import { AuthService } from "./_services/auth.service";
 import { HomeComponent } from "./home/home.component";
 import { RegisterComponent } from "./register/register.component";
 import { ErrorInterceptorProvider } from "./_services/error.interceptor";
-import { ValueComponent } from "./value/value.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
   MatCard,
@@ -45,7 +44,6 @@ export function tokenGetter() {
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    ValueComponent,
     MatCard,
     MatCardTitle,
     MatDivider,

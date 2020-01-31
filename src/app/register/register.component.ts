@@ -39,28 +39,30 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.authService.register(this.model, "customer/auth").subscribe(
         () => {
           this.alertify.success("Registration successfull");
-          this.cancel();
           this.isLoading = true;
-
-          this.subs.add(
-            this.authService.login(this.model, "customer/auth").subscribe(
-              () => {
-                this.customerService.setUserName(this.model.UserName);
-
-                this.alertify.success("Logged in successfully");
-                this.orderService.loggedIn();
-                this.isLoading = false;
-                this.router.navigate(["products"]);
-              },
-              error => {
-                this.alertify.error(error);
-                this.isLoading = false;
-              }
-            )
-          );
+          this.loggin(this.model);
+          // this.cancel();
         },
         error => {
           this.alertify.error(error);
+        }
+      )
+    );
+  }
+
+  loggin(model) {
+    this.subs.add(
+      this.authService.login(model, "customer/auth").subscribe(
+        () => {
+          this.customerService.setUserName(this.model.UserName);
+          this.alertify.success("Logged in successfully");
+          this.orderService.loggedIn();
+          this.isLoading = false;
+          this.router.navigate(["products"]);
+        },
+        error => {
+          this.alertify.error(error);
+          this.isLoading = false;
         }
       )
     );
